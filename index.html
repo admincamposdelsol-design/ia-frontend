@@ -1,255 +1,466 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AliciaIA</title>
-
-<style>
-
-:root {
-
---primary-color: #F7DC6F;
-
---secondary-color: #F2C464;
-
---text-color: #333;
-
---background-color: #F9F9F9;
-
-}
-
-
-
-body {
-
-font-family: Arial, sans-serif;
-
-background-color: var(--background-color);
-
-color: var(--text-color);
-
-margin: 0;
-
-padding: 0;
-
-}
-
-
-
-.container {
-
-max-width: 800px;
-
-margin: 40px auto;
-
-padding: 20px;
-
-background-color: #fff;
-
-border: 1px solid #ddd;
-
-border-radius: 10px;
-
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-}
-
-
-
-h1 {
-
-color: var(--primary-color);
-
-text-align: center;
-
-}
-
-
-
-input[type="file"], input[type="text"] {
-
-width: 100%;
-
-padding: 10px;
-
-margin-bottom: 20px;
-
-border: 1px solid #ccc;
-
-border-radius: 5px;
-
-}
-
-
-
-button {
-
-background-color: var(--primary-color);
-
-color: #fff;
-
-padding: 10px 20px;
-
-border: none;
-
-border-radius: 5px;
-
-cursor: pointer;
-
-}
-
-
-
-button:hover {
-
-background-color: var(--secondary-color);
-
-}
-
-
-
-textarea {
-
-width: 100%;
-
-height: 100px;
-
-padding: 10px;
-
-margin-bottom: 20px;
-
-border: 1px solid #ccc;
-
-border-radius: 5px;
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AliciaIA — Portafolio e Inteligencia Artificial</title>
+    <style>
+        /* Paleta de colores inspirada en el video: Negro profundo, Blanco puro y Neón */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --accent-neon: #00ff88; /* Verde neón del video */
+            --accent-purple: #a855f7; /* Violeta de los botones secundarios */
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border-color: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Barra de navegación minimalista superior */
+        nav {
+            display: table;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        .nav-logo {
+            display: table-cell;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .nav-links {
+            display: table-cell;
+            text-align: right;
+            vertical-align: middle;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-neon);
+        }
+
+        /* Sección Hero (Bienvenida impactante como en el video) */
+        .hero {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--accent-purple);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            display: inline-block;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 75px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Consola / Contenedor de la IA (Estilo Tarjeta 3D limpia) */
+        .ia-console {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 750px;
+            margin: 0 auto 100px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            text-align: left;
+        }
+
+        .ia-console h2 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            display: block;
+            border-left: 4px solid var(--accent-neon);
+            padding-left: 12px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input[type="text"] {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-neon);
+        }
+
+        /* Input de archivos personalizado y limpio */
+        .file-upload {
+            position: relative;
+            background: #1a1a1a;
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .file-upload:hover {
+            border-color: var(--accent-purple);
+        }
+        .file-upload input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .file-upload span {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Botón de acción principal estilo Neón */
+        .btn-submit {
+            width: 100%;
+            background: var(--accent-neon);
+            color: #000000;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Pantalla de carga */
+        .loader {
+            display: none;
+            text-align: center;
+            color: var(--accent-purple);
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* Pantalla de Resultados con formato de código moderno */
+        .result-box {
+            margin-top: 30px;
+            background: #0d0d0d;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            display: none;
+        }
+        .result-box pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #d1d5db;
+        }
+
+        /* Sección de Proyectos (Estructura de cuadrícula idéntica al video) */
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            letter-spacing: -1px;
+        }
+
+        .projects-grid {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        /* Simulación de filas usando tablas limpias CSS para compatibilidad */
+        .project-row {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 30px;
+        }
+
+        .project-card {
+            display: table-cell;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            padding-bottom: 35px;
+            vertical-align: top;
+            transition: transform 0.3s;
+        }
+
+        /* Espaciador entre tarjetas */
+        .project-space {
+            display: table-cell;
+            width: 30px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: #333;
+        }
+
+        .project-num {
+            font-size: 12px;
+            color: var(--accent-purple);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .project-tag {
+            background: #1a1a1a;
+            color: var(--text-main);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            padding: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
+    <nav>
+        <div class="nav-logo">ALICIA // IA</div>
+        <div class="nav-links">
+            <a href="#cerebro">Cerebro Neuronal</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="https://github.com" target="_blank">GitHub</a>
+        </div>
+    </nav>
 
-<h1>AliciaIA</h1>
+    <header class="hero">
+        <div class="hero-badge">NUEVA VERSIÓN CON BÚSQUEDA GLOBAL GLOBAL 🌐</div>
+        <h1>Diseño Exclusivo.<br>Inteligencia Real.</h1>
+        <p>Una interfaz de portafolio ultra-moderna conectada directamente a tu servidor backend en la nube con DuckDuckGo y redes neuronales en NumPy.</p>
+    </header>
 
-<input type="file" id="imagen" accept="image/*">
+    <main class="ia-console" id="cerebro">
+        <h2>Interactuar con AliciaIA</h2>
+        
+        <form id="formulario-ia">
+            <div class="input-group">
+                <label for="pregunta">¿Qué quieres investigar u ordenar hoy?</label>
+                <input type="text" id="pregunta" placeholder="Ej: Necesito un resumen sobre la fotosíntesis..." required>
+            </div>
 
-<button id="procesar">Procesar imagen</button>
+            <div class="input-group">
+                <label>Análisis de pixeles (Subir imagen opcional)</label>
+                <div class="file-upload">
+                    <input type="file" id="imagen" accept="image/*">
+                    <span id="file-label">📸 Arrastra o selecciona una imagen de tu tarea</span>
+                </div>
+            </div>
 
-<textarea id="resultado"></textarea>
+            <button type="submit" class="btn-submit">PROCESAR CONSULTA EN RENDER →</button>
+        </form>
 
-<input type="text" id="expresion">
+        <div id="loader" class="loader">🧠 RAZONANDO Y RASPANDO LA WEB EN TIEMPO REAL...</div>
 
-<button id="calcular">Calcular</button>
+        <div id="result-box" class="result-box">
+            <pre id="resultado-texto"></pre>
+        </div>
+    </main>
 
-<textarea id="resultado-calculo"></textarea>
+    <section id="proyectos">
+        <h2 class="section-title">Mis Módulos de Código</h2>
+        
+        <div class="projects-grid">
+            <div class="project-row">
+                <div class="project-card">
+                    <div class="project-num">01 // BACKEND</div>
+                    <h3>FastAPI Engine</h3>
+                    <p>Servidor de alto rendimiento montado en Render dentro de un contenedor Docker aislado.</p>
+                    <span class="project-tag">Python Puro</span>
+                </div>
+                <div class="project-space"></div>
+                <div class="project-card">
+                    <div class="project-num">02 // SCRAPER</div>
+                    <h3>DuckDuckGo Live Search</h3>
+                    <p>Módulo que evita datos falsos de Wikipedia buscando respuestas en vivo por toda la web.</p>
+                    <span class="project-tag">Web Scraping</span>
+                </div>
+            </div>
 
-</div>
+            <div class="project-row">
+                <div class="project-card">
+                    <div class="project-num">03 // MATEMÁTICAS</div>
+                    <h3>Red Neuronal NumPy</h3>
+                    <p>Red neuronal artificial programada desde cero con matrices densas y propagación hacia adelante.</p>
+                    <span class="project-tag">Machine Learning</span>
+                </div>
+                <div class="project-space"></div>
+                <div class="project-card">
+                    <div class="project-num">04 // VISIÓN</div>
+                    <h3>Procesador PIL</h3>
+                    <p>Normaliza y redimensiona cualquier imagen transformándola en matrices de brillo RGB.</p>
+                    <span class="project-tag">Computer Vision</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <footer>
+        &copy; 2026 AliciaIA Corp. Creado de punta a punta por desarrolladores estrella.
+    </footer>
 
+    <script>
+        // Cambiar el texto del input al elegir un archivo
+        const fileInput = document.getElementById('imagen');
+        const fileLabel = document.getElementById('file-label');
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files.length > 0) {
+                fileLabel.textContent = `✅ Archivo cargado: ${e.target.files[0].name}`;
+                fileLabel.style.color = '#00ff88';
+            }
+        });
 
-<script type="importmap">
+        // Conexión mágica con el backend
+        const URL_BACKEND = "https://dou-ia.onrender.com/procesar-tarea";
 
-{
+        document.getElementById('formulario-ia').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const pregunta = document.getElementById('pregunta').value;
+            const imagenFile = document.getElementById('imagen').files[0];
+            const loader = document.getElementById('loader');
+            const resultBox = document.getElementById('result-box');
+            const resultTexto = document.getElementById('resultado-texto');
 
-"imports": {
+            // Mostrar animación de carga e iniciar pantalla limpia
+            loader.style.display = "block";
+            resultBox.style.display = "none";
 
-"tesseract": "https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js",
+            const formData = new FormData();
+            formData.append("pregunta", pregunta);
+            if (imagenFile) {
+                formData.append("archivo_imagen", imagenFile);
+            }
 
-"mathjs": "https://cdn.jsdelivr.net/npm/mathjs@11.8.0/dist/math.min.js"
+            try {
+                const response = await fetch(URL_BACKEND, {
+                    method: "POST",
+                    body: formData
+                });
 
-}
+                const data = await response.json();
+                
+                // Formateamos los datos JSON para que parezca una consola hacker premium
+                let output = `┌── 🤖 ALICIA_IA > CONSULTA PROCESADA CON ÉXITO\n`;
+                output += `├── 📝 PREGUNTA: "${data.pregunta_recibida}"\n`;
+                output += `│\n`;
+                
+                if(data.analisis_visual) {
+                    output += `├── 👁️ ANÁLISIS DE PÍXELES (Matrices Normalizadas):\n`;
+                    output += `│   ├── Resolución interna: ${data.analisis_visual.dimensiones_procesadas}\n`;
+                    output += `│   ├── Brillo Rojo Promedio:  ${data.analisis_visual.brillo_promedio_RGB.Rojo}\n`;
+                    output += `│   ├── Brillo Verde Promedio: ${data.analisis_visual.brillo_promedio_RGB.Verde}\n`;
+                    output += `│   └── Brillo Azul Promedio:  ${data.analisis_visual.brillo_promedio_RGB.Azul}\n`;
+                    output += `│\n`;
+                }
+                
+                output += `├── 🌐 INFORMACIÓN EXTRAÍDA DE LA WEB DE FORMA VERÍDICA:\n`;
+                // Reemplazamos los saltos de línea para ordenarlo en la consola
+                const infoFormateada = data.informacion_encontrada_web.replace(/\n/g, '\n│   ');
+                output += `│   ${infoFormateada}\n`;
+                output += `│\n`;
+                
+                output += `└── 🧠 VECTOR DE PESOS DE LA RED NEURONAL (NumPy):\n    [${data.decision_neuronal_pesos.join(', ')}]\n`;
 
-}
+                resultTexto.textContent = output;
+                resultBox.style.display = "block";
 
-</script>
-
-<script type="module">
-
-import 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js';
-
-import math from 'https://cdn.jsdelivr.net/npm/mathjs@11.8.0/dist/math.min.js';
-
-
-
-// Módulo de procesamiento de imágenes
-
-async function procesarImagen(imagen) {
-
-const worker = await Tesseract.createWorker();
-
-const { data: { text } } = await worker.recognize(imagen);
-
-await worker.terminate();
-
-return text;
-
-}
-
-
-
-// Módulo de cálculo
-
-function calcularExpresion(expresion) {
-
-try {
-
-const resultado = math.evaluate(expresion);
-
-return resultado.toString();
-
-} catch (error) {
-
-return 'Error en la expresión';
-
-}
-
-}
-
-
-
-// Eventos
-
-document.getElementById('procesar').addEventListener('click', async () => {
-
-const imagen = document.getElementById('imagen').files[0];
-
-const reader = new FileReader();
-
-reader.onload = async () => {
-
-const texto = await procesarImagen(reader.result);
-
-document.getElementById('resultado').value = texto;
-
-};
-
-reader.readAsDataURL(imagen);
-
-});
-
-
-
-document.getElementById('calcular').addEventListener('click', () => {
-
-const expresion = document.getElementById('expresion').value;
-
-const resultado = calcularExpresion(expresion);
-
-document.getElementById('resultado-calculo').value = resultado;
-
-});
-
-</script>
-
+            } catch (error) {
+                resultTexto.textContent = `❌ ERROR EN EL CEREBRO DE RENDER:\nNo se pudo establecer conexión con el servidor. Verifica que tu Web Service en Render no esté inactivo o cargando las dependencias de DuckDuckGo.`;
+                resultBox.style.display = "block";
+            } finally {
+                loader.style.display = "none";
+            }
+        });
+    </script>
 </body>
-
 </html>

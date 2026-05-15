@@ -1,466 +1,1034 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AliciaIA — Portafolio e Inteligencia Artificial</title>
-    <style>
-        /* Paleta de colores inspirada en el video: Negro profundo, Blanco puro y Neón */
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #141414;
-            --accent-neon: #00ff88; /* Verde neón del video */
-            --accent-purple: #a855f7; /* Violeta de los botones secundarios */
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --border-color: #222222;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AliciaIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-        }
+:root {
+  --cream: #FAF7F2;
+  --warm-white: #FDF9F4;
+  --sand: #EDE5D8;
+  --sand-dark: #D6C9B5;
+  --terracotta: #C4714A;
+  --terracotta-light: #E8956E;
+  --terracotta-pale: #F5E4D9;
+  --bark: #6B4E3D;
+  --bark-light: #9A7060;
+  --charcoal: #2C2420;
+  --muted: #7A6760;
+  --gold: #C9A84C;
+  --gold-light: #F0D49A;
+  --moss: #6B7A5A;
+  --moss-light: #E8EDDF;
+  --shadow-warm: rgba(107, 78, 61, 0.12);
+}
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--charcoal);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-        /* Barra de navegación minimalista superior */
-        nav {
-            display: table;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        .nav-logo {
-            display: table-cell;
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        .nav-links {
-            display: table-cell;
-            text-align: right;
-            vertical-align: middle;
-        }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover {
-            color: var(--accent-neon);
-        }
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
 
-        /* Sección Hero (Bienvenida impactante como en el video) */
-        .hero {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
+/* ── Header ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 247, 242, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--sand);
+  padding: 0 2rem;
+}
 
-        .hero-badge {
-            background: rgba(168, 85, 247, 0.1);
-            color: var(--accent-purple);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 13px;
-            display: inline-block;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-        .hero h1 {
-            font-size: clamp(40px, 8vw, 75px);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, #fff 0%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-        .hero p {
-            font-size: clamp(16px, 3vw, 20px);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--terracotta) 0%, var(--bark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
 
-        /* Consola / Contenedor de la IA (Estilo Tarjeta 3D limpia) */
-        .ia-console {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 750px;
-            margin: 0 auto 100px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            text-align: left;
-        }
+.logo-name {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--charcoal);
+  letter-spacing: -0.3px;
+}
 
-        .ia-console h2 {
-            font-size: 22px;
-            margin-bottom: 25px;
-            display: block;
-            border-left: 4px solid var(--accent-neon);
-            padding-left: 12px;
-        }
+.logo-name span {
+  color: var(--terracotta);
+  font-style: italic;
+}
 
-        .input-group {
-            margin-bottom: 20px;
-        }
+nav {
+  display: flex;
+  gap: 2px;
+}
 
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
+.nav-btn {
+  background: none;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
 
-        .input-group input[type="text"] {
-            width: 100%;
-            background: #1a1a1a;
-            border: 1px solid var(--border-color);
-            padding: 16px;
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
+.nav-btn:hover { color: var(--charcoal); background: var(--sand); }
+.nav-btn.active { color: var(--terracotta); background: var(--terracotta-pale); font-weight: 500; }
 
-        .input-group input[type="text"]:focus {
-            outline: none;
-            border-color: var(--accent-neon);
-        }
+/* ── Main layout ── */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
 
-        /* Input de archivos personalizado y limpio */
-        .file-upload {
-            position: relative;
-            background: #1a1a1a;
-            border: 1px dashed var(--border-color);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-        .file-upload:hover {
-            border-color: var(--accent-purple);
-        }
-        .file-upload input[type="file"] {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .file-upload span {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 4rem 0 5rem;
+}
 
-        /* Botón de acción principal estilo Neón */
-        .btn-submit {
-            width: 100%;
-            background: var(--accent-neon);
-            color: #000000;
-            border: none;
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--terracotta-pale);
+  border: 1px solid rgba(196, 113, 74, 0.2);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--terracotta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
 
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0, 255, 136, 0.4);
-        }
+.hero-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  animation: pulse 2s infinite;
+}
 
-        /* Pantalla de carga */
-        .loader {
-            display: none;
-            text-align: center;
-            color: var(--accent-purple);
-            font-weight: bold;
-            margin: 20px 0;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
 
-        /* Pantalla de Resultados con formato de código moderno */
-        .result-box {
-            margin-top: 30px;
-            background: #0d0d0d;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 20px;
-            display: none;
-        }
-        .result-box pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 14px;
-            color: #d1d5db;
-        }
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--charcoal);
+  letter-spacing: -1.5px;
+  margin-bottom: 1.2rem;
+}
 
-        /* Sección de Proyectos (Estructura de cuadrícula idéntica al video) */
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 50px;
-            letter-spacing: -1px;
-        }
+h1 em {
+  font-style: italic;
+  color: var(--terracotta);
+}
 
-        .projects-grid {
-            max-width: 1100px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
+.hero-sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.65;
+}
 
-        /* Simulación de filas usando tablas limpias CSS para compatibilidad */
-        .project-row {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-            margin-bottom: 30px;
-        }
+/* ── Section system ── */
+.section {
+  display: none;
+  animation: fadeUp 0.4s ease;
+}
 
-        .project-card {
-            display: table-cell;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 25px;
-            padding-bottom: 35px;
-            vertical-align: top;
-            transition: transform 0.3s;
-        }
+.section.active { display: block; }
 
-        /* Espaciador entre tarjetas */
-        .project-space {
-            display: table-cell;
-            width: 30px;
-        }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: #333;
-        }
+/* ── Panel cards ── */
+.panel {
+  background: var(--warm-white);
+  border: 1px solid var(--sand);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 2px 20px var(--shadow-warm);
+}
 
-        .project-num {
-            font-size: 12px;
-            color: var(--accent-purple);
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
+.panel + .panel { margin-top: 1.5rem; }
 
-        .project-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
+.panel-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--charcoal);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.4px;
+}
 
-        .project-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
+.panel-desc {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
+}
 
-        .project-tag {
-            background: #1a1a1a;
-            color: var(--text-main);
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            border: 1px solid var(--border-color);
-        }
+/* ── Drop zone ── */
+.drop-zone {
+  border: 1.5px dashed var(--sand-dark);
+  border-radius: 14px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
 
-        footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 13px;
-            padding: 40px;
-            border-top: 1px solid var(--border-color);
-        }
-    </style>
+.drop-zone:hover, .drop-zone.dragover {
+  border-color: var(--terracotta);
+  background: var(--terracotta-pale);
+}
+
+.drop-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  background: var(--sand);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-icon svg { width: 24px; height: 24px; stroke: var(--bark-light); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.drop-label { font-size: 15px; font-weight: 500; color: var(--charcoal); margin-bottom: 4px; }
+.drop-hint { font-size: 13px; color: var(--muted); }
+
+/* Preview image */
+#img-preview {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: 10px;
+  margin: 1.2rem auto 0;
+  display: none;
+  object-fit: contain;
+}
+
+/* ── Input fields ── */
+.field-wrap {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+textarea.field, input.field {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--charcoal);
+  background: var(--cream);
+  border: 1px solid var(--sand-dark);
+  border-radius: 12px;
+  padding: 14px 16px;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  line-height: 1.6;
+}
+
+textarea.field { min-height: 110px; }
+
+textarea.field:focus, input.field:focus {
+  border-color: var(--terracotta-light);
+  box-shadow: 0 0 0 3px rgba(196, 113, 74, 0.12);
+}
+
+textarea.field[readonly] {
+  background: var(--sand);
+  color: var(--bark);
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 13.5px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 22px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary {
+  background: var(--terracotta);
+  color: #fff;
+}
+
+.btn-primary:hover { background: var(--bark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(196, 113, 74, 0.35); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.btn-secondary {
+  background: var(--sand);
+  color: var(--bark);
+  border: 1px solid var(--sand-dark);
+}
+
+.btn-secondary:hover { background: var(--sand-dark); }
+
+.btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 1.2rem; }
+
+/* ── Loader ── */
+.loader {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.loader.visible { display: flex; }
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--sand-dark);
+  border-top-color: var(--terracotta);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Result output ── */
+.result-block {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--sand);
+  padding-top: 1.5rem;
+  display: none;
+}
+
+.result-block.visible { display: block; }
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.result-tag {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--moss);
+  background: var(--moss-light);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* ── Chat section ── */
+.chat-area {
+  min-height: 320px;
+  max-height: 480px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 1.5rem;
+  background: var(--cream);
+  border: 1px solid var(--sand);
+  border-radius: 14px;
+  margin-bottom: 1rem;
+  scroll-behavior: smooth;
+}
+
+.chat-area::-webkit-scrollbar { width: 5px; }
+.chat-area::-webkit-scrollbar-track { background: transparent; }
+.chat-area::-webkit-scrollbar-thumb { background: var(--sand-dark); border-radius: 10px; }
+
+.bubble {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  animation: fadeUp 0.25s ease;
+}
+
+.bubble.user {
+  background: var(--terracotta);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.bubble.ai {
+  background: var(--warm-white);
+  color: var(--charcoal);
+  border: 1px solid var(--sand);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.bubble.ai strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--terracotta);
+  margin-bottom: 4px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.chat-input-row textarea {
+  flex: 1;
+  min-height: 48px;
+  max-height: 140px;
+  padding: 12px 16px;
+  resize: none;
+}
+
+/* ── Calculator section ── */
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) { .calc-grid { grid-template-columns: 1fr; } }
+
+.calc-display {
+  font-family: 'Fraunces', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  letter-spacing: -1px;
+  min-height: 80px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 4px 8px;
+  border-bottom: 2px solid var(--sand-dark);
+  margin-bottom: 1.5rem;
+  word-break: break-all;
+}
+
+.calc-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.key {
+  aspect-ratio: 1;
+  border: 1px solid var(--sand-dark);
+  border-radius: 10px;
+  background: var(--warm-white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key:hover { background: var(--sand); border-color: var(--terracotta-light); }
+.key:active { transform: scale(0.94); background: var(--sand); }
+
+.key.op { color: var(--terracotta); font-weight: 500; background: var(--terracotta-pale); border-color: rgba(196, 113, 74, 0.25); }
+.key.op:hover { background: rgba(196, 113, 74, 0.2); }
+.key.eq { background: var(--terracotta); color: #fff; border-color: var(--terracotta); font-size: 20px; }
+.key.eq:hover { background: var(--bark); }
+.key.clear { color: var(--bark); font-size: 13px; font-weight: 500; }
+.key.zero { grid-column: span 2; aspect-ratio: auto; padding: 0 20px; justify-content: flex-start; }
+
+/* ── Status bar ── */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--moss);
+  animation: pulse 3s infinite;
+}
+
+/* ── History pills ── */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--cream);
+  border: 1px solid var(--sand);
+  border-radius: 10px;
+  font-size: 13px;
+  animation: fadeUp 0.2s ease;
+}
+
+.history-expr { color: var(--muted); }
+.history-val { font-weight: 500; color: var(--terracotta); font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; }
+
+/* ── Footer ── */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--sand);
+}
+
+/* ── Decorative blob ── */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 0;
+}
+
+.blob-1 { width: 500px; height: 500px; background: var(--terracotta); top: -100px; right: -80px; }
+.blob-2 { width: 400px; height: 400px; background: var(--gold); bottom: 0; left: -100px; }
+</style>
 </head>
 <body>
 
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">A</div>
+      <span class="logo-name">Alicia<span>IA</span></span>
+    </div>
     <nav>
-        <div class="nav-logo">ALICIA // IA</div>
-        <div class="nav-links">
-            <a href="#cerebro">Cerebro Neuronal</a>
-            <a href="#proyectos">Proyectos</a>
-            <a href="https://github.com" target="_blank">GitHub</a>
-        </div>
+      <button class="nav-btn active" onclick="switchTab(this, 'ocr')">Leer imagen</button>
+      <button class="nav-btn" onclick="switchTab(this, 'chat')">Chat</button>
+      <button class="nav-btn" onclick="switchTab(this, 'calc')">Calculadora</button>
     </nav>
+  </div>
+</header>
 
-    <header class="hero">
-        <div class="hero-badge">NUEVA VERSIÓN CON BÚSQUEDA GLOBAL GLOBAL 🌐</div>
-        <h1>Diseño Exclusivo.<br>Inteligencia Real.</h1>
-        <p>Una interfaz de portafolio ultra-moderna conectada directamente a tu servidor backend en la nube con DuckDuckGo y redes neuronales en NumPy.</p>
-    </header>
+<main>
 
-    <main class="ia-console" id="cerebro">
-        <h2>Interactuar con AliciaIA</h2>
-        
-        <form id="formulario-ia">
-            <div class="input-group">
-                <label for="pregunta">¿Qué quieres investigar u ordenar hoy?</label>
-                <input type="text" id="pregunta" placeholder="Ej: Necesito un resumen sobre la fotosíntesis..." required>
-            </div>
+  <!-- Hero -->
+  <div class="hero" id="hero">
+    <div class="hero-eyebrow">IA activa</div>
+    <h1>Tu asistente<br><em>inteligente</em></h1>
+    <p class="hero-sub">Extrae texto de imágenes, calcula expresiones y conversa con una IA diseñada para acompañarte.</p>
+  </div>
 
-            <div class="input-group">
-                <label>Análisis de pixeles (Subir imagen opcional)</label>
-                <div class="file-upload">
-                    <input type="file" id="imagen" accept="image/*">
-                    <span id="file-label">📸 Arrastra o selecciona una imagen de tu tarea</span>
-                </div>
-            </div>
+  <!-- OCR Section -->
+  <div class="section active" id="section-ocr">
+    <div class="panel">
+      <p class="panel-title">Extracción de texto</p>
+      <p class="panel-desc">Cargá cualquier imagen con texto y AliciaIA lo transcribirá automáticamente.</p>
 
-            <button type="submit" class="btn-submit">PROCESAR CONSULTA EN RENDER →</button>
-        </form>
-
-        <div id="loader" class="loader">🧠 RAZONANDO Y RASPANDO LA WEB EN TIEMPO REAL...</div>
-
-        <div id="result-box" class="result-box">
-            <pre id="resultado-texto"></pre>
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="imagen" accept="image/*" onchange="onFileChange(event)">
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         </div>
-    </main>
+        <p class="drop-label">Arrastrá tu imagen aquí</p>
+        <p class="drop-hint">o hacé clic para seleccionar · PNG, JPG, WEBP</p>
+      </div>
 
-    <section id="proyectos">
-        <h2 class="section-title">Mis Módulos de Código</h2>
-        
-        <div class="projects-grid">
-            <div class="project-row">
-                <div class="project-card">
-                    <div class="project-num">01 // BACKEND</div>
-                    <h3>FastAPI Engine</h3>
-                    <p>Servidor de alto rendimiento montado en Render dentro de un contenedor Docker aislado.</p>
-                    <span class="project-tag">Python Puro</span>
-                </div>
-                <div class="project-space"></div>
-                <div class="project-card">
-                    <div class="project-num">02 // SCRAPER</div>
-                    <h3>DuckDuckGo Live Search</h3>
-                    <p>Módulo que evita datos falsos de Wikipedia buscando respuestas en vivo por toda la web.</p>
-                    <span class="project-tag">Web Scraping</span>
-                </div>
-            </div>
+      <img id="img-preview" alt="Vista previa">
 
-            <div class="project-row">
-                <div class="project-card">
-                    <div class="project-num">03 // MATEMÁTICAS</div>
-                    <h3>Red Neuronal NumPy</h3>
-                    <p>Red neuronal artificial programada desde cero con matrices densas y propagación hacia adelante.</p>
-                    <span class="project-tag">Machine Learning</span>
-                </div>
-                <div class="project-space"></div>
-                <div class="project-card">
-                    <div class="project-num">04 // VISIÓN</div>
-                    <h3>Procesador PIL</h3>
-                    <p>Normaliza y redimensiona cualquier imagen transformándola en matrices de brillo RGB.</p>
-                    <span class="project-tag">Computer Vision</span>
-                </div>
-            </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-procesar" onclick="procesarImagen()" disabled>
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Procesar imagen
+        </button>
+        <div class="loader" id="loader-ocr">
+          <div class="spinner"></div>
+          <span>Leyendo texto…</span>
         </div>
-    </section>
+      </div>
 
-    <footer>
-        &copy; 2026 AliciaIA Corp. Creado de punta a punta por desarrolladores estrella.
-    </footer>
+      <div class="result-block" id="result-ocr">
+        <div class="result-header">
+          <span class="result-tag">Texto extraído</span>
+          <button class="btn btn-secondary" onclick="copyText('ocr-output')">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <label class="field-label">Resultado</label>
+        <textarea class="field" id="ocr-output" readonly placeholder="El texto aparecerá acá…"></textarea>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // Cambiar el texto del input al elegir un archivo
-        const fileInput = document.getElementById('imagen');
-        const fileLabel = document.getElementById('file-label');
-        fileInput.addEventListener('change', (e) => {
-            if(e.target.files.length > 0) {
-                fileLabel.textContent = `✅ Archivo cargado: ${e.target.files[0].name}`;
-                fileLabel.style.color = '#00ff88';
-            }
-        });
+  <!-- Chat Section -->
+  <div class="section" id="section-chat">
+    <div class="panel">
+      <p class="panel-title">Conversación</p>
+      <p class="panel-desc">Preguntale lo que necesites a AliciaIA.</p>
 
-        // Conexión mágica con el backend
-        const URL_BACKEND = "https://dou-ia.onrender.com/procesar-tarea";
+      <div class="chat-area" id="chat-area">
+        <div class="bubble ai">
+          <strong>AliciaIA</strong>
+          Hola, soy Alicia. ¿En qué puedo ayudarte hoy?
+        </div>
+      </div>
 
-        document.getElementById('formulario-ia').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const pregunta = document.getElementById('pregunta').value;
-            const imagenFile = document.getElementById('imagen').files[0];
-            const loader = document.getElementById('loader');
-            const resultBox = document.getElementById('result-box');
-            const resultTexto = document.getElementById('resultado-texto');
+      <div class="chat-input-row">
+        <textarea class="field" id="chat-input" placeholder="Escribí tu mensaje…" rows="1" onkeydown="chatKeydown(event)"></textarea>
+        <button class="btn btn-primary" onclick="enviarChat()">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="status-bar">
+        <div class="status-dot"></div>
+        <span>Conectado · AliciaIA v2.0</span>
+      </div>
+    </div>
+  </div>
 
-            // Mostrar animación de carga e iniciar pantalla limpia
-            loader.style.display = "block";
-            resultBox.style.display = "none";
+  <!-- Calc Section -->
+  <div class="section" id="section-calc">
+    <div class="panel">
+      <p class="panel-title">Calculadora</p>
+      <p class="panel-desc">Evaluá expresiones matemáticas o usá el teclado visual.</p>
 
-            const formData = new FormData();
-            formData.append("pregunta", pregunta);
-            if (imagenFile) {
-                formData.append("archivo_imagen", imagenFile);
-            }
+      <div class="calc-grid">
+        <div>
+          <div class="calc-display" id="calc-display">0</div>
+          <div class="calc-keys">
+            <button class="key clear" onclick="calcClear()">AC</button>
+            <button class="key op" onclick="calcSign()">+/−</button>
+            <button class="key op" onclick="calcPercent()">%</button>
+            <button class="key op" onclick="calcOp('/')">÷</button>
 
-            try {
-                const response = await fetch(URL_BACKEND, {
-                    method: "POST",
-                    body: formData
-                });
+            <button class="key" onclick="calcDigit('7')">7</button>
+            <button class="key" onclick="calcDigit('8')">8</button>
+            <button class="key" onclick="calcDigit('9')">9</button>
+            <button class="key op" onclick="calcOp('*')">×</button>
 
-                const data = await response.json();
-                
-                // Formateamos los datos JSON para que parezca una consola hacker premium
-                let output = `┌── 🤖 ALICIA_IA > CONSULTA PROCESADA CON ÉXITO\n`;
-                output += `├── 📝 PREGUNTA: "${data.pregunta_recibida}"\n`;
-                output += `│\n`;
-                
-                if(data.analisis_visual) {
-                    output += `├── 👁️ ANÁLISIS DE PÍXELES (Matrices Normalizadas):\n`;
-                    output += `│   ├── Resolución interna: ${data.analisis_visual.dimensiones_procesadas}\n`;
-                    output += `│   ├── Brillo Rojo Promedio:  ${data.analisis_visual.brillo_promedio_RGB.Rojo}\n`;
-                    output += `│   ├── Brillo Verde Promedio: ${data.analisis_visual.brillo_promedio_RGB.Verde}\n`;
-                    output += `│   └── Brillo Azul Promedio:  ${data.analisis_visual.brillo_promedio_RGB.Azul}\n`;
-                    output += `│\n`;
-                }
-                
-                output += `├── 🌐 INFORMACIÓN EXTRAÍDA DE LA WEB DE FORMA VERÍDICA:\n`;
-                // Reemplazamos los saltos de línea para ordenarlo en la consola
-                const infoFormateada = data.informacion_encontrada_web.replace(/\n/g, '\n│   ');
-                output += `│   ${infoFormateada}\n`;
-                output += `│\n`;
-                
-                output += `└── 🧠 VECTOR DE PESOS DE LA RED NEURONAL (NumPy):\n    [${data.decision_neuronal_pesos.join(', ')}]\n`;
+            <button class="key" onclick="calcDigit('4')">4</button>
+            <button class="key" onclick="calcDigit('5')">5</button>
+            <button class="key" onclick="calcDigit('6')">6</button>
+            <button class="key op" onclick="calcOp('-')">−</button>
 
-                resultTexto.textContent = output;
-                resultBox.style.display = "block";
+            <button class="key" onclick="calcDigit('1')">1</button>
+            <button class="key" onclick="calcDigit('2')">2</button>
+            <button class="key" onclick="calcDigit('3')">3</button>
+            <button class="key op" onclick="calcOp('+')">+</button>
 
-            } catch (error) {
-                resultTexto.textContent = `❌ ERROR EN EL CEREBRO DE RENDER:\nNo se pudo establecer conexión con el servidor. Verifica que tu Web Service en Render no esté inactivo o cargando las dependencias de DuckDuckGo.`;
-                resultBox.style.display = "block";
-            } finally {
-                loader.style.display = "none";
-            }
-        });
-    </script>
+            <button class="key zero" onclick="calcDigit('0')">0</button>
+            <button class="key" onclick="calcDot()">.</button>
+            <button class="key eq" onclick="calcEval()">=</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label">Expresión libre</label>
+          <input class="field" id="expr-input" placeholder="e.g. sqrt(144) + 2^8" onkeydown="exprKeydown(event)">
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="evalExpr()">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Evaluar
+            </button>
+          </div>
+          <div class="result-block visible" id="result-calc" style="display:block; margin-top:1rem;">
+            <div class="result-header">
+              <span class="result-tag">Resultado</span>
+            </div>
+            <div class="calc-display" id="calc-result" style="font-size:2rem; min-height:56px; border-color:var(--sand);">—</div>
+          </div>
+
+          <p class="field-label" style="margin-top:1.5rem;">Historial</p>
+          <div class="history-list" id="history-list">
+            <p style="font-size:13px; color:var(--muted);">Sin cálculos aún.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Hecho con ♥ · AliciaIA © 2025
+</footer>
+
+<!-- Tesseract CDN -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.4/dist/tesseract.min.js"></script>
+<!-- mathjs CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+
+<script>
+/* ── Tab navigation ── */
+function switchTab(btn, id) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('section-' + id).classList.add('active');
+  document.getElementById('hero').style.display = id === 'ocr' ? '' : 'none';
+}
+
+/* ── OCR ── */
+let selectedFile = null;
+
+function onFileChange(e) {
+  selectedFile = e.target.files[0];
+  if (!selectedFile) return;
+  const preview = document.getElementById('img-preview');
+  preview.src = URL.createObjectURL(selectedFile);
+  preview.style.display = 'block';
+  document.getElementById('btn-procesar').disabled = false;
+  document.querySelector('.drop-label').textContent = selectedFile.name;
+}
+
+// Drag & drop
+const dz = document.getElementById('drop-zone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+dz.addEventListener('drop', e => {
+  e.preventDefault();
+  dz.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f) {
+    selectedFile = f;
+    const input = document.getElementById('imagen');
+    const dt = new DataTransfer();
+    dt.items.add(f);
+    input.files = dt.files;
+    const preview = document.getElementById('img-preview');
+    preview.src = URL.createObjectURL(f);
+    preview.style.display = 'block';
+    document.getElementById('btn-procesar').disabled = false;
+    document.querySelector('.drop-label').textContent = f.name;
+  }
+});
+
+async function procesarImagen() {
+  if (!selectedFile) return;
+  const loader = document.getElementById('loader-ocr');
+  const btn = document.getElementById('btn-procesar');
+  loader.classList.add('visible');
+  btn.disabled = true;
+
+  try {
+    const result = await Tesseract.recognize(selectedFile, 'spa+eng', {
+      logger: m => { if (m.status === 'recognizing text') { /* progress */ } }
+    });
+    const texto = result.data.text.trim() || '(No se detectó texto)';
+    document.getElementById('ocr-output').value = texto;
+    document.getElementById('result-ocr').classList.add('visible');
+  } catch (err) {
+    document.getElementById('ocr-output').value = 'Error al procesar: ' + err.message;
+    document.getElementById('result-ocr').classList.add('visible');
+  } finally {
+    loader.classList.remove('visible');
+    btn.disabled = false;
+  }
+}
+
+function copyText(id) {
+  const el = document.getElementById(id);
+  navigator.clipboard.writeText(el.value).then(() => {
+    showToast('Texto copiado');
+  });
+}
+
+/* ── Chat (simulated with smart responses) ── */
+const chatResponses = [
+  "Entiendo tu consulta. Puedo ayudarte con extracción de texto de imágenes, cálculos matemáticos o simplemente conversar.",
+  "Esa es una pregunta interesante. Decime más para poder darte una respuesta más precisa.",
+  "¡Claro! Estoy aquí para ayudarte. ¿Necesitás algo más?",
+  "Puedo procesar imágenes con texto, evaluar expresiones matemáticas complejas, y mucho más.",
+  "Qué buena pregunta. Exploremos eso juntos.",
+];
+let chatIdx = 0;
+
+function chatKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviarChat(); }
+}
+
+function enviarChat() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const area = document.getElementById('chat-area');
+
+  // User bubble
+  const ub = document.createElement('div');
+  ub.className = 'bubble user';
+  ub.textContent = msg;
+  area.appendChild(ub);
+  input.value = '';
+  area.scrollTop = area.scrollHeight;
+
+  // AI bubble (delayed)
+  setTimeout(() => {
+    const ab = document.createElement('div');
+    ab.className = 'bubble ai';
+    ab.innerHTML = `<strong>AliciaIA</strong>${chatResponses[chatIdx % chatResponses.length]}`;
+    chatIdx++;
+    area.appendChild(ab);
+    area.scrollTop = area.scrollHeight;
+  }, 700 + Math.random() * 500);
+}
+
+/* ── Calculator ── */
+let calcExpr = '';
+let calcNew = true;
+
+function updateDisplay() {
+  const d = document.getElementById('calc-display');
+  d.textContent = calcExpr || '0';
+  if (calcExpr.length > 10) d.style.fontSize = '2rem';
+  else if (calcExpr.length > 7) d.style.fontSize = '2.4rem';
+  else d.style.fontSize = '2.8rem';
+}
+
+function calcDigit(d) {
+  if (calcNew) { calcExpr = ''; calcNew = false; }
+  calcExpr += d;
+  updateDisplay();
+}
+
+function calcOp(op) {
+  calcNew = false;
+  // Replace trailing operator if any
+  calcExpr = calcExpr.replace(/[+\-*/]$/, '');
+  calcExpr += op;
+  updateDisplay();
+}
+
+function calcDot() {
+  if (calcNew) { calcExpr = '0'; calcNew = false; }
+  const parts = calcExpr.split(/[+\-*/]/);
+  if (!parts[parts.length - 1].includes('.')) calcExpr += '.';
+  updateDisplay();
+}
+
+function calcClear() {
+  calcExpr = '';
+  calcNew = true;
+  updateDisplay();
+  document.getElementById('calc-result').textContent = '—';
+}
+
+function calcSign() {
+  try {
+    const val = math.evaluate(calcExpr);
+    calcExpr = String(-val);
+    updateDisplay();
+  } catch(e) {}
+}
+
+function calcPercent() {
+  try {
+    const val = math.evaluate(calcExpr);
+    calcExpr = String(val / 100);
+    updateDisplay();
+  } catch(e) {}
+}
+
+function calcEval() {
+  try {
+    const val = math.evaluate(calcExpr);
+    addToHistory(calcExpr, val);
+    document.getElementById('calc-result').textContent = formatNum(val);
+    calcExpr = String(val);
+    calcNew = true;
+    updateDisplay();
+  } catch(e) {
+    document.getElementById('calc-result').textContent = 'Error';
+    calcExpr = '';
+    calcNew = true;
+    updateDisplay();
+  }
+}
+
+function evalExpr() {
+  const expr = document.getElementById('expr-input').value.trim();
+  if (!expr) return;
+  try {
+    const val = math.evaluate(expr);
+    document.getElementById('calc-result').textContent = formatNum(val);
+    addToHistory(expr, val);
+  } catch(e) {
+    document.getElementById('calc-result').textContent = 'Expresión inválida';
+  }
+}
+
+function exprKeydown(e) {
+  if (e.key === 'Enter') evalExpr();
+}
+
+function formatNum(n) {
+  if (typeof n === 'number') {
+    if (Number.isInteger(n)) return n.toLocaleString('es-AR');
+    return parseFloat(n.toFixed(10)).toLocaleString('es-AR', { maximumSignificantDigits: 10 });
+  }
+  return String(n);
+}
+
+let history = [];
+
+function addToHistory(expr, val) {
+  history.unshift({ expr, val: formatNum(val) });
+  if (history.length > 6) history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('history-list');
+  list.innerHTML = history.map(h => `
+    <div class="history-item">
+      <span class="history-expr">${h.expr}</span>
+      <span class="history-val">${h.val}</span>
+    </div>
+  `).join('');
+}
+
+/* ── Toast ── */
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = `
+    position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
+    background:var(--charcoal); color:#fff; padding:10px 20px;
+    border-radius:100px; font-size:13px; z-index:9999;
+    animation: fadeUp 0.3s ease; pointer-events:none;
+  `;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2200);
+}
+
+/* Keyboard support for calculator */
+document.addEventListener('keydown', e => {
+  const secCalc = document.getElementById('section-calc');
+  if (!secCalc.classList.contains('active')) return;
+  if (document.activeElement === document.getElementById('expr-input')) return;
+  if ('0123456789'.includes(e.key)) calcDigit(e.key);
+  else if (['+', '-', '*', '/'].includes(e.key)) calcOp(e.key);
+  else if (e.key === 'Enter' || e.key === '=') calcEval();
+  else if (e.key === 'Backspace') { calcExpr = calcExpr.slice(0,-1); updateDisplay(); }
+  else if (e.key === 'Escape') calcClear();
+  else if (e.key === '.') calcDot();
+});
+</script>
 </body>
 </html>

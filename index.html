@@ -591,6 +591,77 @@ footer {
   border-top: 1px solid var(--sand);
 }
 
+/* ── Mode selector ── */
+.mode-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  background: var(--sand);
+  padding: 5px;
+  border-radius: 14px;
+  width: fit-content;
+}
+
+.mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--muted);
+  background: transparent;
+}
+
+.mode-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.mode-btn:hover { color: var(--charcoal); }
+.mode-btn.active { background: var(--warm-white); color: var(--terracotta); box-shadow: 0 1px 6px var(--shadow-warm); }
+
+/* ── Dual grid ── */
+.dual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+@media (max-width: 640px) { .dual-grid { grid-template-columns: 1fr; } }
+
+.dual-slot { display: flex; flex-direction: column; gap: 10px; }
+
+.dual-label-row { display: flex; flex-direction: column; gap: 4px; }
+
+.dual-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  width: fit-content;
+  letter-spacing: 0.02em;
+}
+
+.dual-badge.pregunta { background: var(--terracotta-pale); color: var(--terracotta); border: 1px solid rgba(196,113,74,0.25); }
+.dual-badge.respuestas { background: var(--moss-light); color: var(--moss); border: 1px solid rgba(107,122,90,0.25); }
+
+.dual-hint { font-size: 11.5px; color: var(--muted); padding-left: 2px; }
+
+.dz-pregunta { border-color: rgba(196,113,74,0.35); }
+.dz-pregunta:hover, .dz-pregunta.dragover { border-color: var(--terracotta); background: var(--terracotta-pale); }
+
+.dz-respuestas { border-color: rgba(107,122,90,0.35); }
+.dz-respuestas:hover, .dz-respuestas.dragover { border-color: var(--moss); background: var(--moss-light); }
+
+.img-preview { max-width: 100%; max-height: 180px; border-radius: 10px; margin-top: 8px; display: none; object-fit: contain; }
+
+.respuestas-tag { background: var(--moss-light); color: var(--moss); }
+
 /* ── Decorative blob ── */
 .blob {
   position: fixed;
@@ -634,32 +705,42 @@ footer {
     <p class="hero-sub">Extrae texto de imágenes, calcula expresiones y conversa con una IA diseñada para acompañarte.</p>
   </div>
 
-  <!-- OCR Section -->
+  <!-- OCR / Resolver Section -->
   <div class="section active" id="section-ocr">
-    <div class="panel">
+
+    <!-- Modo selector -->
+    <div class="mode-selector">
+      <button class="mode-btn active" id="mode-simple" onclick="setMode('simple')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Imagen única
+      </button>
+      <button class="mode-btn" id="mode-dual" onclick="setMode('dual')">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="9" height="18" rx="2"/><rect x="13" y="3" width="9" height="18" rx="2"/></svg>
+        Pregunta + Respuestas
+      </button>
+    </div>
+
+    <!-- MODO SIMPLE -->
+    <div class="panel" id="panel-simple">
       <p class="panel-title">Extracción de texto</p>
       <p class="panel-desc">Cargá cualquier imagen con texto y AliciaIA lo transcribirá automáticamente.</p>
 
-      <div class="drop-zone" id="drop-zone">
-        <input type="file" id="imagen" accept="image/*" onchange="onFileChange(event)">
+      <div class="drop-zone" id="drop-zone" ondragover="dzDrag(event,'drop-zone')" ondragleave="dzLeave('drop-zone')" ondrop="dzDrop(event,'drop-zone','imagen','preview-simple','btn-procesar')">
+        <input type="file" id="imagen" accept="image/*" onchange="onFileChange(event,'preview-simple','btn-procesar')">
         <div class="drop-icon">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         </div>
-        <p class="drop-label">Arrastrá tu imagen aquí</p>
+        <p class="drop-label" id="lbl-simple">Arrastrá tu imagen aquí</p>
         <p class="drop-hint">o hacé clic para seleccionar · PNG, JPG, WEBP</p>
       </div>
-
-      <img id="img-preview" alt="Vista previa">
+      <img id="preview-simple" class="img-preview" alt="Vista previa">
 
       <div class="btn-row">
         <button class="btn btn-primary" id="btn-procesar" onclick="procesarImagen()" disabled>
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           Procesar imagen
         </button>
-        <div class="loader" id="loader-ocr">
-          <div class="spinner"></div>
-          <span>Leyendo texto…</span>
-        </div>
+        <div class="loader" id="loader-ocr"><div class="spinner"></div><span>Leyendo texto…</span></div>
       </div>
 
       <div class="result-block" id="result-ocr">
@@ -670,10 +751,86 @@ footer {
             Copiar
           </button>
         </div>
-        <label class="field-label">Resultado</label>
+        <label class="field-label">Resultado OCR</label>
         <textarea class="field" id="ocr-output" readonly placeholder="El texto aparecerá acá…"></textarea>
       </div>
     </div>
+
+    <!-- MODO DUAL -->
+    <div class="panel" id="panel-dual" style="display:none;">
+      <p class="panel-title">Resolver examen / cuestionario</p>
+      <p class="panel-desc">Cargá la imagen con la <strong style="color:var(--terracotta)">pregunta o enunciado</strong> y la imagen con las <strong style="color:var(--moss)">opciones de respuesta</strong>. AliciaIA las procesará juntas.</p>
+
+      <div class="dual-grid">
+
+        <!-- Zona A: Pregunta -->
+        <div class="dual-slot">
+          <div class="dual-label-row">
+            <span class="dual-badge pregunta">❶ Imagen a responder</span>
+            <span class="dual-hint">La pregunta, enunciado o problema</span>
+          </div>
+          <div class="drop-zone dz-pregunta" id="dz-pregunta" ondragover="dzDrag(event,'dz-pregunta')" ondragleave="dzLeave('dz-pregunta')" ondrop="dzDrop(event,'dz-pregunta','img-pregunta','preview-pregunta','_dual-ready')">
+            <input type="file" id="img-pregunta" accept="image/*" onchange="onFileChange(event,'preview-pregunta','_dual-ready')">
+            <div class="drop-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <p class="drop-label" id="lbl-pregunta">Imagen con la pregunta</p>
+            <p class="drop-hint">PNG, JPG, WEBP</p>
+          </div>
+          <img id="preview-pregunta" class="img-preview" alt="Vista previa pregunta">
+        </div>
+
+        <!-- Zona B: Respuestas -->
+        <div class="dual-slot">
+          <div class="dual-label-row">
+            <span class="dual-badge respuestas">❷ Imagen con respuestas</span>
+            <span class="dual-hint">Las opciones A, B, C… o el solucionario</span>
+          </div>
+          <div class="drop-zone dz-respuestas" id="dz-respuestas" ondragover="dzDrag(event,'dz-respuestas')" ondragleave="dzLeave('dz-respuestas')" ondrop="dzDrop(event,'dz-respuestas','img-respuestas','preview-respuestas','_dual-ready')">
+            <input type="file" id="img-respuestas" accept="image/*" onchange="onFileChange(event,'preview-respuestas','_dual-ready')">
+            <div class="drop-icon">
+              <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <p class="drop-label" id="lbl-respuestas">Imagen con las respuestas</p>
+            <p class="drop-hint">PNG, JPG, WEBP</p>
+          </div>
+          <img id="preview-respuestas" class="img-preview" alt="Vista previa respuestas">
+        </div>
+
+      </div><!-- /dual-grid -->
+
+      <!-- Campo de contexto opcional -->
+      <div style="margin-top:1.5rem;">
+        <label class="field-label">Contexto adicional <span style="font-weight:300;text-transform:none;letter-spacing:0">(opcional)</span></label>
+        <input class="field" id="dual-contexto" placeholder="Ej: Es un examen de biología, nivel secundario…">
+      </div>
+
+      <div class="btn-row" style="margin-top:1.2rem;">
+        <button class="btn btn-primary" id="btn-dual" onclick="procesarDual()" disabled>
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Analizar y resolver
+        </button>
+        <div class="loader" id="loader-dual"><div class="spinner"></div><span>Procesando imágenes…</span></div>
+      </div>
+
+      <!-- Resultado dual -->
+      <div class="result-block" id="result-dual">
+        <div class="result-header">
+          <span class="result-tag respuestas-tag">Análisis completo</span>
+          <button class="btn btn-secondary" onclick="copyText('dual-output')">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar
+          </button>
+        </div>
+        <label class="field-label">Pregunta detectada</label>
+        <textarea class="field" id="dual-pregunta-out" readonly style="min-height:70px;" placeholder="Texto de la imagen de pregunta…"></textarea>
+        <label class="field-label" style="margin-top:1rem;">Opciones / Respuestas detectadas</label>
+        <textarea class="field" id="dual-respuestas-out" readonly style="min-height:70px;" placeholder="Texto de la imagen de respuestas…"></textarea>
+        <label class="field-label" style="margin-top:1rem;">Búsqueda web</label>
+        <textarea class="field" id="dual-output" readonly placeholder="Información encontrada en la web…"></textarea>
+      </div>
+    </div>
+
   </div>
 
   <!-- Chat Section -->
@@ -784,61 +941,122 @@ function switchTab(btn, id) {
   document.getElementById('hero').style.display = id === 'ocr' ? '' : 'none';
 }
 
-/* ── OCR ── */
-let selectedFile = null;
+/* ── OCR / Dual mode ── */
+const BACKEND_URL = 'https://TU-APP.onrender.com'; // ← cambiá esto por tu URL de Render
 
-function onFileChange(e) {
-  selectedFile = e.target.files[0];
-  if (!selectedFile) return;
-  const preview = document.getElementById('img-preview');
-  preview.src = URL.createObjectURL(selectedFile);
-  preview.style.display = 'block';
-  document.getElementById('btn-procesar').disabled = false;
-  document.querySelector('.drop-label').textContent = selectedFile.name;
+let currentMode = 'simple';
+let files = { simple: null, pregunta: null, respuestas: null };
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('mode-simple').classList.toggle('active', mode === 'simple');
+  document.getElementById('mode-dual').classList.toggle('active', mode === 'dual');
+  document.getElementById('panel-simple').style.display = mode === 'simple' ? '' : 'none';
+  document.getElementById('panel-dual').style.display  = mode === 'dual'   ? '' : 'none';
 }
 
-// Drag & drop
-const dz = document.getElementById('drop-zone');
-dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
-dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
-dz.addEventListener('drop', e => {
-  e.preventDefault();
-  dz.classList.remove('dragover');
-  const f = e.dataTransfer.files[0];
-  if (f) {
-    selectedFile = f;
-    const input = document.getElementById('imagen');
-    const dt = new DataTransfer();
-    dt.items.add(f);
-    input.files = dt.files;
-    const preview = document.getElementById('img-preview');
-    preview.src = URL.createObjectURL(f);
-    preview.style.display = 'block';
-    document.getElementById('btn-procesar').disabled = false;
-    document.querySelector('.drop-label').textContent = f.name;
-  }
-});
+/* Generic file change handler: fileId = input id, previewId = img id */
+function onFileChange(e, previewId, btnId) {
+  const f = e.target.files[0];
+  if (!f) return;
+  const inputId = e.target.id;
+  // Map input id → files key
+  if (inputId === 'imagen')         files.simple    = f;
+  if (inputId === 'img-pregunta')   files.pregunta  = f;
+  if (inputId === 'img-respuestas') files.respuestas = f;
 
+  const preview = document.getElementById(previewId);
+  preview.src = URL.createObjectURL(f);
+  preview.style.display = 'block';
+
+  // Update drop label
+  const lblMap = { imagen: 'lbl-simple', 'img-pregunta': 'lbl-pregunta', 'img-respuestas': 'lbl-respuestas' };
+  const lbl = document.getElementById(lblMap[inputId]);
+  if (lbl) lbl.textContent = f.name;
+
+  refreshDualBtn();
+  if (inputId === 'imagen') document.getElementById('btn-procesar').disabled = false;
+}
+
+function refreshDualBtn() {
+  const ready = files.pregunta && files.respuestas;
+  document.getElementById('btn-dual').disabled = !ready;
+}
+
+/* Drag helpers */
+function dzDrag(e, dzId) { e.preventDefault(); document.getElementById(dzId).classList.add('dragover'); }
+function dzLeave(dzId) { document.getElementById(dzId).classList.remove('dragover'); }
+function dzDrop(e, dzId, inputId, previewId, btnId) {
+  e.preventDefault();
+  document.getElementById(dzId).classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (!f) return;
+  const input = document.getElementById(inputId);
+  const dt = new DataTransfer(); dt.items.add(f); input.files = dt.files;
+  // Trigger onFileChange manually
+  onFileChange({ target: input }, previewId, btnId);
+}
+
+/* ── Modo simple: OCR local con Tesseract ── */
 async function procesarImagen() {
-  if (!selectedFile) return;
+  if (!files.simple) return;
   const loader = document.getElementById('loader-ocr');
   const btn = document.getElementById('btn-procesar');
-  loader.classList.add('visible');
-  btn.disabled = true;
-
+  loader.classList.add('visible'); btn.disabled = true;
   try {
-    const result = await Tesseract.recognize(selectedFile, 'spa+eng', {
-      logger: m => { if (m.status === 'recognizing text') { /* progress */ } }
-    });
+    const result = await Tesseract.recognize(files.simple, 'spa+eng');
     const texto = result.data.text.trim() || '(No se detectó texto)';
     document.getElementById('ocr-output').value = texto;
     document.getElementById('result-ocr').classList.add('visible');
   } catch (err) {
-    document.getElementById('ocr-output').value = 'Error al procesar: ' + err.message;
+    document.getElementById('ocr-output').value = 'Error: ' + err.message;
     document.getElementById('result-ocr').classList.add('visible');
   } finally {
-    loader.classList.remove('visible');
-    btn.disabled = false;
+    loader.classList.remove('visible'); btn.disabled = false;
+  }
+}
+
+/* ── Modo dual: OCR local + envío al backend ── */
+async function procesarDual() {
+  if (!files.pregunta || !files.respuestas) return;
+  const loader = document.getElementById('loader-dual');
+  const btn = document.getElementById('btn-dual');
+  loader.classList.add('visible'); btn.disabled = true;
+
+  try {
+    // 1. OCR ambas imágenes en paralelo
+    const [resP, resR] = await Promise.all([
+      Tesseract.recognize(files.pregunta,   'spa+eng'),
+      Tesseract.recognize(files.respuestas, 'spa+eng'),
+    ]);
+    const textoPregunta   = resP.data.text.trim() || '(Sin texto detectado)';
+    const textoRespuestas = resR.data.text.trim() || '(Sin texto detectado)';
+
+    document.getElementById('dual-pregunta-out').value   = textoPregunta;
+    document.getElementById('dual-respuestas-out').value = textoRespuestas;
+
+    // 2. Enviar al backend /procesar-dual con campos separados
+    const contexto = document.getElementById('dual-contexto').value.trim();
+
+    const fd = new FormData();
+    fd.append('texto_pregunta',   textoPregunta);
+    fd.append('texto_respuestas', textoRespuestas);
+    fd.append('contexto',         contexto);
+    fd.append('imagen_pregunta',   files.pregunta,   files.pregunta.name);
+    fd.append('imagen_respuestas', files.respuestas, files.respuestas.name);
+
+    const resp = await fetch(`${BACKEND_URL}/procesar-dual`, { method: 'POST', body: fd });
+    const data = await resp.json();
+
+    const webInfo = data.informacion_encontrada_web || '(Sin resultados web)';
+    document.getElementById('dual-output').value = webInfo;
+    document.getElementById('result-dual').classList.add('visible');
+
+  } catch (err) {
+    document.getElementById('dual-output').value = 'Error: ' + err.message + '\n\nVerificá que el backend esté corriendo y que BACKEND_URL sea correcto.';
+    document.getElementById('result-dual').classList.add('visible');
+  } finally {
+    loader.classList.remove('visible'); btn.disabled = false;
   }
 }
 

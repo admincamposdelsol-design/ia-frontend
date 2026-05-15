@@ -1,101 +1,255 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dou-IA: Mi Asistente de Tareas</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #121212; color: #ffffff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 600px; width: 100%; background: #1e1e1e; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h1 { text-align: center; color: #00ff88; margin-top: 0; }
-        label { display: block; margin: 15px 0 5px; font-weight: bold; color: #bbb; }
-        input[type="text"], input[type="file"] { width: 100%; padding: 10px; background: #2d2d2d; border: 1px solid #444; border-radius: 6px; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #00ff88; border: none; color: #121212; font-weight: bold; font-size: 16px; border-radius: 6px; cursor: pointer; margin-top: 20px; transition: 0.2s; }
-        button:hover { background: #00cc6e; }
-        .box { background: #2d2d2d; padding: 15px; border-radius: 6px; border-left: 4px solid #00ff88; margin-top: 15px; white-space: pre-wrap; font-family: monospace; }
-        .loading { color: #ffbb00; font-weight: bold; display: none; }
-    </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AliciaIA</title>
+
+<style>
+
+:root {
+
+--primary-color: #F7DC6F;
+
+--secondary-color: #F2C464;
+
+--text-color: #333;
+
+--background-color: #F9F9F9;
+
+}
+
+
+
+body {
+
+font-family: Arial, sans-serif;
+
+background-color: var(--background-color);
+
+color: var(--text-color);
+
+margin: 0;
+
+padding: 0;
+
+}
+
+
+
+.container {
+
+max-width: 800px;
+
+margin: 40px auto;
+
+padding: 20px;
+
+background-color: #fff;
+
+border: 1px solid #ddd;
+
+border-radius: 10px;
+
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+h1 {
+
+color: var(--primary-color);
+
+text-align: center;
+
+}
+
+
+
+input[type="file"], input[type="text"] {
+
+width: 100%;
+
+padding: 10px;
+
+margin-bottom: 20px;
+
+border: 1px solid #ccc;
+
+border-radius: 5px;
+
+}
+
+
+
+button {
+
+background-color: var(--primary-color);
+
+color: #fff;
+
+padding: 10px 20px;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+}
+
+
+
+button:hover {
+
+background-color: var(--secondary-color);
+
+}
+
+
+
+textarea {
+
+width: 100%;
+
+height: 100px;
+
+padding: 10px;
+
+margin-bottom: 20px;
+
+border: 1px solid #ccc;
+
+border-radius: 5px;
+
+}
+
+</style>
+
 </head>
+
 <body>
 
 <div class="container">
-    <h1>🤖 Dou-IA</h1>
-    <p style="text-align:center; color:#888;">Procesador de tareas e imágenes desde cero</p>
-    
-    <form id="ia-form">
-        <label>Escribe el tema o pregunta de tu tarea:</label>
-        <input type="text" id="pregunta" placeholder="Ej: Fotosíntesis, Revolución de Mayo, etc." required>
-        
-        <label>Sube una imagen o foto del ejercicio (Opcional):</label>
-        <input type="file" id="imagen" accept="image/*">
-        
-        <button type="submit">Enviar a la IA</button>
-    </form>
 
-    <div id="loading" class="loading">🧠 Mi neurona está razonando y buscando en la web...</div>
-    
-    <div id="resultado-seccion" style="display:none;">
-        <label>Respuesta de tu Servidor IA:</label>
-        <div id="respuesta" class="box"></div>
-    </div>
+<h1>AliciaIA</h1>
+
+<input type="file" id="imagen" accept="image/*">
+
+<button id="procesar">Procesar imagen</button>
+
+<textarea id="resultado"></textarea>
+
+<input type="text" id="expresion">
+
+<button id="calcular">Calcular</button>
+
+<textarea id="resultado-calculo"></textarea>
+
 </div>
 
-<script>
-    // CAMBIA ESTA URL POR LA DE TU SERVIDOR EN RENDER:
-    const URL_MI_IA = "https://dou-ia.onrender.com/procesar-tarea";
 
-    document.getElementById('ia-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const pregunta = document.getElementById('pregunta').value;
-        const imagenInput = document.getElementById('imagen').files[0];
-        const loading = document.getElementById('loading');
-        const resultadoSeccion = document.getElementById('resultado-seccion');
-        const respuestaBox = document.getElementById('respuesta');
 
-        loading.style.display = "block";
-        resultadoSeccion.style.display = "none";
+<script type="importmap">
 
-        // Preparamos los datos tal como los espera FastAPI
-        const formData = new FormData();
-        formData.append("pregunta", pregunta);
-        if (imagenInput) {
-            formData.append("archivo_imagen", imagenInput);
-        }
+{
 
-        try {
-            // Conexión mágica entre GitHub Pages y Render
-            const response = await fetch(URL_MI_IA, {
-                method: "POST",
-                body: formData
-            });
+"imports": {
 
-            const data = await response.json();
-            
-            // Estructuramos la respuesta en pantalla de forma bonita
-            let textoVisible = `📝 Pregunta: ${data.pregunta_recibida}\n\n`;
-            
-            if(data.analisis_visual) {
-                textoVisible += `👁️ ANÁLISIS VISUAL DE PÍXELES (Matrices NumPy):\n`;
-                textoVisible += `   - Brillo Promedio Rojo:  ${data.analisis_visual.brillo_promedio_RGB.Rojo}\n`;
-                textoVisible += `   - Brillo Promedio Verde: ${data.analisis_visual.brillo_promedio_RGB.Verde}\n`;
-                textoVisible += `   - Brillo Promedio Azul:  ${data.analisis_visual.brillo_promedio_RGB.Azul}\n\n`;
-            }
-            
-            textoVisible += `🌐 DATOS CAPTURADOS EN VIVO DE LA WEB:\n${data.informacion_encontrada_web}\n\n`;
-            textoVisible += `🧠 DECISIÓN MATEMÁTICA DE LA RED NEURONAL (Pesos finales):\n[${data.decision_neuronal_pesos.join(', ')}]`;
+"tesseract": "https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js",
 
-            respuestaBox.textContent = textoVisible;
-            resultadoSeccion.style.display = "block";
+"mathjs": "https://cdn.jsdelivr.net/npm/mathjs@11.8.0/dist/math.min.js"
 
-        } catch (error) {
-            respuestaBox.textContent = "Error al conectar con la IA. Asegúrate de que el servidor en Render no esté dormido.";
-            resultadoSeccion.style.display = "block";
-        } finally {
-            loading.style.display = "none";
-        }
-    });
+}
+
+}
+
+</script>
+
+<script type="module">
+
+import 'https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js';
+
+import math from 'https://cdn.jsdelivr.net/npm/mathjs@11.8.0/dist/math.min.js';
+
+
+
+// Módulo de procesamiento de imágenes
+
+async function procesarImagen(imagen) {
+
+const worker = await Tesseract.createWorker();
+
+const { data: { text } } = await worker.recognize(imagen);
+
+await worker.terminate();
+
+return text;
+
+}
+
+
+
+// Módulo de cálculo
+
+function calcularExpresion(expresion) {
+
+try {
+
+const resultado = math.evaluate(expresion);
+
+return resultado.toString();
+
+} catch (error) {
+
+return 'Error en la expresión';
+
+}
+
+}
+
+
+
+// Eventos
+
+document.getElementById('procesar').addEventListener('click', async () => {
+
+const imagen = document.getElementById('imagen').files[0];
+
+const reader = new FileReader();
+
+reader.onload = async () => {
+
+const texto = await procesarImagen(reader.result);
+
+document.getElementById('resultado').value = texto;
+
+};
+
+reader.readAsDataURL(imagen);
+
+});
+
+
+
+document.getElementById('calcular').addEventListener('click', () => {
+
+const expresion = document.getElementById('expresion').value;
+
+const resultado = calcularExpresion(expresion);
+
+document.getElementById('resultado-calculo').value = resultado;
+
+});
+
 </script>
 
 </body>
+
 </html>

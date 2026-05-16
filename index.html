@@ -21,7 +21,6 @@
   --charcoal: #2C2420;
   --muted: #7A6760;
   --gold: #C9A84C;
-  --gold-light: #F0D49A;
   --moss: #6B7A5A;
   --moss-light: #E8EDDF;
   --shadow-warm: rgba(107, 78, 61, 0.12);
@@ -35,7 +34,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Grain texture overlay */
 body::before {
   content: '';
   position: fixed;
@@ -45,11 +43,8 @@ body::before {
   z-index: 0;
 }
 
-/* ── Header ── */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   background: rgba(250, 247, 242, 0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--sand);
@@ -57,621 +52,208 @@ header {
 }
 
 .header-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-width: 1100px; margin: 0 auto; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.logo { display: flex; align-items: center; gap: 10px; }
 
 .logo-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: 34px; height: 34px; border-radius: 50%;
   background: linear-gradient(135deg, var(--terracotta) 0%, var(--bark) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  color: #fff;
-  font-size: 17px;
-  font-weight: 300;
-  letter-spacing: -0.5px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-style: italic;
+  color: #fff; font-size: 17px; font-weight: 300;
 }
 
-.logo-name {
-  font-family: 'Fraunces', serif;
-  font-size: 20px;
-  font-weight: 300;
-  color: var(--charcoal);
-  letter-spacing: -0.3px;
-}
+.logo-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 300; color: var(--charcoal); }
+.logo-name span { color: var(--terracotta); font-style: italic; }
 
-.logo-name span {
-  color: var(--terracotta);
-  font-style: italic;
-}
-
-nav {
-  display: flex;
-  gap: 2px;
-}
+nav { display: flex; gap: 2px; }
 
 .nav-btn {
-  background: none;
-  border: none;
-  padding: 7px 14px;
-  border-radius: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.2s;
+  background: none; border: none; padding: 7px 14px; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400;
+  color: var(--muted); cursor: pointer; transition: all 0.2s;
 }
-
 .nav-btn:hover { color: var(--charcoal); background: var(--sand); }
 .nav-btn.active { color: var(--terracotta); background: var(--terracotta-pale); font-weight: 500; }
 
-/* ── Main layout ── */
-main {
-  position: relative;
-  z-index: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3rem 2rem 6rem;
-}
+main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 6rem; }
 
-/* ── Hero ── */
-.hero {
-  text-align: center;
-  padding: 4rem 0 5rem;
-}
+.hero { text-align: center; padding: 4rem 0 5rem; }
 
 .hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--terracotta-pale);
-  border: 1px solid rgba(196, 113, 74, 0.2);
-  border-radius: 100px;
-  padding: 5px 14px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--terracotta);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--terracotta-pale); border: 1px solid rgba(196, 113, 74, 0.2);
+  border-radius: 100px; padding: 5px 14px; font-size: 12px; font-weight: 500;
+  color: var(--terracotta); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.5rem;
 }
 
 .hero-eyebrow::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--terracotta);
-  animation: pulse 2s infinite;
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--terracotta); animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
 
 h1 {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 300;
-  line-height: 1.1;
-  color: var(--charcoal);
-  letter-spacing: -1.5px;
-  margin-bottom: 1.2rem;
+  font-family: 'Fraunces', serif; font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 300; line-height: 1.1; color: var(--charcoal);
+  letter-spacing: -1.5px; margin-bottom: 1.2rem;
 }
+h1 em { font-style: italic; color: var(--terracotta); }
 
-h1 em {
-  font-style: italic;
-  color: var(--terracotta);
-}
+.hero-sub { font-size: 17px; font-weight: 300; color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.65; }
 
-.hero-sub {
-  font-size: 17px;
-  font-weight: 300;
-  color: var(--muted);
-  max-width: 480px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.65;
-}
-
-/* ── Section system ── */
-.section {
-  display: none;
-  animation: fadeUp 0.4s ease;
-}
-
+.section { display: none; animation: fadeUp 0.4s ease; }
 .section.active { display: block; }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ── Panel cards ── */
 .panel {
-  background: var(--warm-white);
-  border: 1px solid var(--sand);
-  border-radius: 20px;
-  padding: 2rem 2.5rem;
+  background: var(--warm-white); border: 1px solid var(--sand);
+  border-radius: 20px; padding: 2rem 2.5rem;
   box-shadow: 0 2px 20px var(--shadow-warm);
 }
-
 .panel + .panel { margin-top: 1.5rem; }
 
-.panel-title {
-  font-family: 'Fraunces', serif;
-  font-size: 22px;
-  font-weight: 300;
-  color: var(--charcoal);
-  margin-bottom: 0.4rem;
-  letter-spacing: -0.4px;
-}
+.panel-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--charcoal); margin-bottom: 0.4rem; letter-spacing: -0.4px; }
+.panel-desc { font-size: 14px; color: var(--muted); margin-bottom: 1.8rem; line-height: 1.6; }
 
-.panel-desc {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 1.8rem;
-  line-height: 1.6;
-}
-
-/* ── Drop zone ── */
 .drop-zone {
-  border: 1.5px dashed var(--sand-dark);
-  border-radius: 14px;
-  padding: 3rem 2rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  background: var(--cream);
-  position: relative;
-  overflow: hidden;
+  border: 1.5px dashed var(--sand-dark); border-radius: 14px;
+  padding: 3rem 2rem; text-align: center; cursor: pointer;
+  transition: all 0.25s; background: var(--cream);
+  position: relative; overflow: hidden;
 }
+.drop-zone:hover, .drop-zone.dragover { border-color: var(--terracotta); background: var(--terracotta-pale); }
+.drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
 
-.drop-zone:hover, .drop-zone.dragover {
-  border-color: var(--terracotta);
-  background: var(--terracotta-pale);
-}
-
-.drop-zone input[type="file"] {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-}
-
-.drop-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 1rem;
-  background: var(--sand);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+.drop-icon { width: 48px; height: 48px; margin: 0 auto 1rem; background: var(--sand); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
 .drop-icon svg { width: 24px; height: 24px; stroke: var(--bark-light); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
 .drop-label { font-size: 15px; font-weight: 500; color: var(--charcoal); margin-bottom: 4px; }
 .drop-hint { font-size: 13px; color: var(--muted); }
 
-/* Preview image */
-#img-preview {
-  max-width: 100%;
-  max-height: 220px;
-  border-radius: 10px;
-  margin: 1.2rem auto 0;
-  display: none;
-  object-fit: contain;
-}
+.img-preview { max-width: 100%; max-height: 180px; border-radius: 10px; margin-top: 8px; display: none; object-fit: contain; }
 
-/* ── Input fields ── */
-.field-wrap {
-  position: relative;
-  margin-bottom: 1rem;
-}
+.field-wrap { position: relative; margin-bottom: 1rem; }
 
 .field-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-bottom: 8px;
+  display: block; font-size: 12px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin-bottom: 8px;
 }
 
 textarea.field, input.field {
-  width: 100%;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  color: var(--charcoal);
-  background: var(--cream);
-  border: 1px solid var(--sand-dark);
-  border-radius: 12px;
-  padding: 14px 16px;
-  resize: vertical;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  outline: none;
-  line-height: 1.6;
+  width: 100%; font-family: 'DM Sans', sans-serif; font-size: 15px;
+  color: var(--charcoal); background: var(--cream);
+  border: 1px solid var(--sand-dark); border-radius: 12px;
+  padding: 14px 16px; resize: vertical; transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none; line-height: 1.6;
 }
-
 textarea.field { min-height: 110px; }
+textarea.field:focus, input.field:focus { border-color: var(--terracotta-light); box-shadow: 0 0 0 3px rgba(196, 113, 74, 0.12); }
+textarea.field[readonly] { background: var(--sand); color: var(--bark); font-family: 'DM Mono', 'Courier New', monospace; font-size: 13.5px; }
 
-textarea.field:focus, input.field:focus {
-  border-color: var(--terracotta-light);
-  box-shadow: 0 0 0 3px rgba(196, 113, 74, 0.12);
-}
-
-textarea.field[readonly] {
-  background: var(--sand);
-  color: var(--bark);
-  font-family: 'DM Mono', 'Courier New', monospace;
-  font-size: 13.5px;
-}
-
-/* ── Buttons ── */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  border-radius: 10px;
-  padding: 11px 22px;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.01em;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+  border: none; border-radius: 10px; padding: 11px 22px;
+  cursor: pointer; transition: all 0.2s; letter-spacing: 0.01em;
 }
-
-.btn-primary {
-  background: var(--terracotta);
-  color: #fff;
-}
-
+.btn-primary { background: var(--terracotta); color: #fff; }
 .btn-primary:hover { background: var(--bark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(196, 113, 74, 0.35); }
 .btn-primary:active { transform: translateY(0); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-
-.btn-secondary {
-  background: var(--sand);
-  color: var(--bark);
-  border: 1px solid var(--sand-dark);
-}
-
+.btn-secondary { background: var(--sand); color: var(--bark); border: 1px solid var(--sand-dark); }
 .btn-secondary:hover { background: var(--sand-dark); }
-
 .btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
 .btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 1.2rem; }
 
-/* ── Loader ── */
-.loader {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
+.loader { display: none; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
 .loader.visible { display: flex; }
-
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--sand-dark);
-  border-top-color: var(--terracotta);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
+.spinner { width: 18px; height: 18px; border: 2px solid var(--sand-dark); border-top-color: var(--terracotta); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Result output ── */
-.result-block {
-  margin-top: 1.5rem;
-  border-top: 1px solid var(--sand);
-  padding-top: 1.5rem;
-  display: none;
-}
-
+.result-block { margin-top: 1.5rem; border-top: 1px solid var(--sand); padding-top: 1.5rem; display: none; }
 .result-block.visible { display: block; }
 
-.result-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.8rem;
-}
+.result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
+.result-tag { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--moss); background: var(--moss-light); padding: 3px 10px; border-radius: 100px; }
 
-.result-tag {
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--moss);
-  background: var(--moss-light);
-  padding: 3px 10px;
-  border-radius: 100px;
-}
-
-/* ── Chat section ── */
 .chat-area {
-  min-height: 320px;
-  max-height: 480px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 1.5rem;
-  background: var(--cream);
-  border: 1px solid var(--sand);
-  border-radius: 14px;
-  margin-bottom: 1rem;
-  scroll-behavior: smooth;
+  min-height: 320px; max-height: 480px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 16px; padding: 1.5rem;
+  background: var(--cream); border: 1px solid var(--sand);
+  border-radius: 14px; margin-bottom: 1rem; scroll-behavior: smooth;
 }
-
 .chat-area::-webkit-scrollbar { width: 5px; }
-.chat-area::-webkit-scrollbar-track { background: transparent; }
 .chat-area::-webkit-scrollbar-thumb { background: var(--sand-dark); border-radius: 10px; }
 
-.bubble {
-  max-width: 80%;
-  padding: 12px 16px;
-  border-radius: 16px;
-  font-size: 14.5px;
-  line-height: 1.65;
-  animation: fadeUp 0.25s ease;
-}
+.bubble { max-width: 80%; padding: 12px 16px; border-radius: 16px; font-size: 14.5px; line-height: 1.65; animation: fadeUp 0.25s ease; }
+.bubble.user { background: var(--terracotta); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+.bubble.ai { background: var(--warm-white); color: var(--charcoal); border: 1px solid var(--sand); align-self: flex-start; border-bottom-left-radius: 4px; }
+.bubble.ai strong { display: block; font-size: 12px; font-weight: 500; color: var(--terracotta); margin-bottom: 4px; font-family: 'Fraunces', serif; font-style: italic; }
 
-.bubble.user {
-  background: var(--terracotta);
-  color: #fff;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
-}
+.chat-input-row { display: flex; gap: 10px; align-items: flex-end; }
+.chat-input-row textarea { flex: 1; min-height: 48px; max-height: 140px; padding: 12px 16px; resize: none; }
 
-.bubble.ai {
-  background: var(--warm-white);
-  color: var(--charcoal);
-  border: 1px solid var(--sand);
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-}
-
-.bubble.ai strong {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--terracotta);
-  margin-bottom: 4px;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-}
-
-.chat-input-row {
-  display: flex;
-  gap: 10px;
-  align-items: flex-end;
-}
-
-.chat-input-row textarea {
-  flex: 1;
-  min-height: 48px;
-  max-height: 140px;
-  padding: 12px 16px;
-  resize: none;
-}
-
-/* ── Calculator section ── */
-.calc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 @media (max-width: 640px) { .calc-grid { grid-template-columns: 1fr; } }
 
 .calc-display {
-  font-family: 'Fraunces', serif;
-  font-size: 2.8rem;
-  font-weight: 300;
-  color: var(--charcoal);
-  letter-spacing: -1px;
-  min-height: 80px;
-  display: flex;
-  align-items: flex-end;
-  padding: 0 4px 8px;
-  border-bottom: 2px solid var(--sand-dark);
-  margin-bottom: 1.5rem;
-  word-break: break-all;
+  font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 300;
+  color: var(--charcoal); letter-spacing: -1px; min-height: 80px;
+  display: flex; align-items: flex-end; padding: 0 4px 8px;
+  border-bottom: 2px solid var(--sand-dark); margin-bottom: 1.5rem; word-break: break-all;
 }
 
-.calc-keys {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-
-.key {
-  aspect-ratio: 1;
-  border: 1px solid var(--sand-dark);
-  border-radius: 10px;
-  background: var(--warm-white);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--charcoal);
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+.calc-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.key { aspect-ratio: 1; border: 1px solid var(--sand-dark); border-radius: 10px; background: var(--warm-white); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 400; color: var(--charcoal); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
 .key:hover { background: var(--sand); border-color: var(--terracotta-light); }
-.key:active { transform: scale(0.94); background: var(--sand); }
-
+.key:active { transform: scale(0.94); }
 .key.op { color: var(--terracotta); font-weight: 500; background: var(--terracotta-pale); border-color: rgba(196, 113, 74, 0.25); }
-.key.op:hover { background: rgba(196, 113, 74, 0.2); }
 .key.eq { background: var(--terracotta); color: #fff; border-color: var(--terracotta); font-size: 20px; }
 .key.eq:hover { background: var(--bark); }
 .key.clear { color: var(--bark); font-size: 13px; font-weight: 500; }
 .key.zero { grid-column: span 2; aspect-ratio: auto; padding: 0 20px; justify-content: flex-start; }
 
-/* ── Status bar ── */
-.status-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 10px;
-}
+.status-bar { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); margin-top: 10px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--moss); animation: pulse 3s infinite; }
 
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--moss);
-  animation: pulse 3s infinite;
-}
-
-/* ── History pills ── */
-.history-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 1rem;
-}
-
-.history-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: var(--cream);
-  border: 1px solid var(--sand);
-  border-radius: 10px;
-  font-size: 13px;
-  animation: fadeUp 0.2s ease;
-}
-
+.history-list { display: flex; flex-direction: column; gap: 6px; margin-top: 1rem; }
+.history-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--cream); border: 1px solid var(--sand); border-radius: 10px; font-size: 13px; }
 .history-expr { color: var(--muted); }
 .history-val { font-weight: 500; color: var(--terracotta); font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; }
 
-/* ── Footer ── */
-footer {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 2rem;
-  font-size: 12px;
-  color: var(--muted);
-  border-top: 1px solid var(--sand);
-}
+footer { position: relative; z-index: 1; text-align: center; padding: 2rem; font-size: 12px; color: var(--muted); border-top: 1px solid var(--sand); }
 
-/* ── Mode selector ── */
-.mode-selector {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1.5rem;
-  background: var(--sand);
-  padding: 5px;
-  border-radius: 14px;
-  width: fit-content;
-}
-
-.mode-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  border: none;
-  border-radius: 10px;
-  padding: 9px 18px;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: var(--muted);
-  background: transparent;
-}
-
+.mode-selector { display: flex; gap: 10px; margin-bottom: 1.5rem; background: var(--sand); padding: 5px; border-radius: 14px; width: fit-content; }
+.mode-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; border: none; border-radius: 10px; padding: 9px 18px; cursor: pointer; transition: all 0.2s; color: var(--muted); background: transparent; }
 .mode-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .mode-btn:hover { color: var(--charcoal); }
 .mode-btn.active { background: var(--warm-white); color: var(--terracotta); box-shadow: 0 1px 6px var(--shadow-warm); }
 
-/* ── Dual grid ── */
-.dual-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-}
-
+.dual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
 @media (max-width: 640px) { .dual-grid { grid-template-columns: 1fr; } }
-
 .dual-slot { display: flex; flex-direction: column; gap: 10px; }
-
 .dual-label-row { display: flex; flex-direction: column; gap: 4px; }
 
-.dual-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 100px;
-  width: fit-content;
-  letter-spacing: 0.02em;
-}
-
+.dual-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px; width: fit-content; letter-spacing: 0.02em; }
 .dual-badge.pregunta { background: var(--terracotta-pale); color: var(--terracotta); border: 1px solid rgba(196,113,74,0.25); }
 .dual-badge.respuestas { background: var(--moss-light); color: var(--moss); border: 1px solid rgba(107,122,90,0.25); }
-
 .dual-hint { font-size: 11.5px; color: var(--muted); padding-left: 2px; }
 
 .dz-pregunta { border-color: rgba(196,113,74,0.35); }
 .dz-pregunta:hover, .dz-pregunta.dragover { border-color: var(--terracotta); background: var(--terracotta-pale); }
-
 .dz-respuestas { border-color: rgba(107,122,90,0.35); }
 .dz-respuestas:hover, .dz-respuestas.dragover { border-color: var(--moss); background: var(--moss-light); }
 
-.img-preview { max-width: 100%; max-height: 180px; border-radius: 10px; margin-top: 8px; display: none; object-fit: contain; }
-
 .respuestas-tag { background: var(--moss-light); color: var(--moss); }
 
-/* ── Decorative blob ── */
-.blob {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  opacity: 0.18;
-  z-index: 0;
-}
-
+.blob { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; opacity: 0.18; z-index: 0; }
 .blob-1 { width: 500px; height: 500px; background: var(--terracotta); top: -100px; right: -80px; }
 .blob-2 { width: 400px; height: 400px; background: var(--gold); bottom: 0; left: -100px; }
 </style>
@@ -681,7 +263,6 @@ footer {
 <div class="blob blob-1"></div>
 <div class="blob blob-2"></div>
 
-<!-- Header -->
 <header>
   <div class="header-inner">
     <div class="logo">
@@ -689,26 +270,24 @@ footer {
       <span class="logo-name">Alicia<span>IA</span></span>
     </div>
     <nav>
-      <button class="nav-btn active" onclick="switchTab(this, 'ocr')">Leer imagen</button>
-      <button class="nav-btn" onclick="switchTab(this, 'chat')">Chat</button>
-      <button class="nav-btn" onclick="switchTab(this, 'calc')">Calculadora</button>
+      <button class="nav-btn active" onclick="switchTab(this,'ocr')">Leer imagen</button>
+      <button class="nav-btn" onclick="switchTab(this,'chat')">Chat</button>
+      <button class="nav-btn" onclick="switchTab(this,'calc')">Calculadora</button>
     </nav>
   </div>
 </header>
 
 <main>
 
-  <!-- Hero -->
   <div class="hero" id="hero">
     <div class="hero-eyebrow">IA activa</div>
     <h1>Tu asistente<br><em>inteligente</em></h1>
     <p class="hero-sub">Extrae texto de imágenes, calcula expresiones y conversa con una IA diseñada para acompañarte.</p>
   </div>
 
-  <!-- OCR / Resolver Section -->
+  <!-- OCR Section -->
   <div class="section active" id="section-ocr">
 
-    <!-- Modo selector -->
     <div class="mode-selector">
       <button class="mode-btn active" id="mode-simple" onclick="setMode('simple')">
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
@@ -720,13 +299,16 @@ footer {
       </button>
     </div>
 
-    <!-- MODO SIMPLE -->
+    <!-- Modo simple -->
     <div class="panel" id="panel-simple">
       <p class="panel-title">Extracción de texto</p>
       <p class="panel-desc">Cargá cualquier imagen con texto y AliciaIA lo transcribirá automáticamente.</p>
 
-      <div class="drop-zone" id="drop-zone" ondragover="dzDrag(event,'drop-zone')" ondragleave="dzLeave('drop-zone')" ondrop="dzDrop(event,'drop-zone','imagen','preview-simple','btn-procesar')">
-        <input type="file" id="imagen" accept="image/*" onchange="onFileChange(event,'preview-simple','btn-procesar')">
+      <div class="drop-zone" id="drop-zone"
+           ondragover="dzDrag(event,'drop-zone')"
+           ondragleave="dzLeave('drop-zone')"
+           ondrop="dzDrop(event,'drop-zone','imagen','preview-simple')">
+        <input type="file" id="imagen" accept="image/*" onchange="onFileChange(event,'preview-simple')">
         <div class="drop-icon">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         </div>
@@ -740,14 +322,14 @@ footer {
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           Procesar imagen
         </button>
-        <div class="loader" id="loader-ocr"><div class="spinner"></div><span>Leyendo texto…</span></div>
+        <div class="loader" id="loader-ocr"><div class="spinner"></div><span id="lbl-loader-ocr">Leyendo texto…</span></div>
       </div>
 
       <div class="result-block" id="result-ocr">
         <div class="result-header">
           <span class="result-tag">Texto extraído</span>
           <button class="btn btn-secondary" onclick="copyText('ocr-output')">
-            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             Copiar
           </button>
         </div>
@@ -756,21 +338,22 @@ footer {
       </div>
     </div>
 
-    <!-- MODO DUAL -->
+    <!-- Modo dual -->
     <div class="panel" id="panel-dual" style="display:none;">
       <p class="panel-title">Resolver examen / cuestionario</p>
       <p class="panel-desc">Cargá la imagen con la <strong style="color:var(--terracotta)">pregunta o enunciado</strong> y la imagen con las <strong style="color:var(--moss)">opciones de respuesta</strong>. AliciaIA las procesará juntas.</p>
 
       <div class="dual-grid">
-
-        <!-- Zona A: Pregunta -->
         <div class="dual-slot">
           <div class="dual-label-row">
             <span class="dual-badge pregunta">❶ Imagen a responder</span>
             <span class="dual-hint">La pregunta, enunciado o problema</span>
           </div>
-          <div class="drop-zone dz-pregunta" id="dz-pregunta" ondragover="dzDrag(event,'dz-pregunta')" ondragleave="dzLeave('dz-pregunta')" ondrop="dzDrop(event,'dz-pregunta','img-pregunta','preview-pregunta','_dual-ready')">
-            <input type="file" id="img-pregunta" accept="image/*" onchange="onFileChange(event,'preview-pregunta','_dual-ready')">
+          <div class="drop-zone dz-pregunta" id="dz-pregunta"
+               ondragover="dzDrag(event,'dz-pregunta')"
+               ondragleave="dzLeave('dz-pregunta')"
+               ondrop="dzDrop(event,'dz-pregunta','img-pregunta','preview-pregunta')">
+            <input type="file" id="img-pregunta" accept="image/*" onchange="onFileChange(event,'preview-pregunta')">
             <div class="drop-icon">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </div>
@@ -780,14 +363,16 @@ footer {
           <img id="preview-pregunta" class="img-preview" alt="Vista previa pregunta">
         </div>
 
-        <!-- Zona B: Respuestas -->
         <div class="dual-slot">
           <div class="dual-label-row">
             <span class="dual-badge respuestas">❷ Imagen con respuestas</span>
             <span class="dual-hint">Las opciones A, B, C… o el solucionario</span>
           </div>
-          <div class="drop-zone dz-respuestas" id="dz-respuestas" ondragover="dzDrag(event,'dz-respuestas')" ondragleave="dzLeave('dz-respuestas')" ondrop="dzDrop(event,'dz-respuestas','img-respuestas','preview-respuestas','_dual-ready')">
-            <input type="file" id="img-respuestas" accept="image/*" onchange="onFileChange(event,'preview-respuestas','_dual-ready')">
+          <div class="drop-zone dz-respuestas" id="dz-respuestas"
+               ondragover="dzDrag(event,'dz-respuestas')"
+               ondragleave="dzLeave('dz-respuestas')"
+               ondrop="dzDrop(event,'dz-respuestas','img-respuestas','preview-respuestas')">
+            <input type="file" id="img-respuestas" accept="image/*" onchange="onFileChange(event,'preview-respuestas')">
             <div class="drop-icon">
               <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
             </div>
@@ -796,10 +381,8 @@ footer {
           </div>
           <img id="preview-respuestas" class="img-preview" alt="Vista previa respuestas">
         </div>
+      </div>
 
-      </div><!-- /dual-grid -->
-
-      <!-- Campo de contexto opcional -->
       <div style="margin-top:1.5rem;">
         <label class="field-label">Contexto adicional <span style="font-weight:300;text-transform:none;letter-spacing:0">(opcional)</span></label>
         <input class="field" id="dual-contexto" placeholder="Ej: Es un examen de biología, nivel secundario…">
@@ -810,24 +393,23 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           Analizar y resolver
         </button>
-        <div class="loader" id="loader-dual"><div class="spinner"></div><span>Procesando imágenes…</span></div>
+        <div class="loader" id="loader-dual"><div class="spinner"></div><span id="lbl-loader-dual">Procesando imágenes…</span></div>
       </div>
 
-      <!-- Resultado dual -->
       <div class="result-block" id="result-dual">
         <div class="result-header">
           <span class="result-tag respuestas-tag">Análisis completo</span>
           <button class="btn btn-secondary" onclick="copyText('dual-output')">
-            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             Copiar
           </button>
         </div>
         <label class="field-label">Pregunta detectada</label>
         <textarea class="field" id="dual-pregunta-out" readonly style="min-height:70px;" placeholder="Texto de la imagen de pregunta…"></textarea>
-        <label class="field-label" style="margin-top:1rem;">Opciones / Respuestas detectadas</label>
-        <textarea class="field" id="dual-respuestas-out" readonly style="min-height:70px;" placeholder="Texto de la imagen de respuestas…"></textarea>
-        <label class="field-label" style="margin-top:1rem;">Búsqueda web</label>
-        <textarea class="field" id="dual-output" readonly placeholder="Información encontrada en la web…"></textarea>
+        <label class="field-label" style="margin-top:1rem;">Texto de referencia detectado</label>
+        <textarea class="field" id="dual-respuestas-out" readonly style="min-height:70px;" placeholder="Texto de la imagen de referencia…"></textarea>
+        <label class="field-label" style="margin-top:1rem;">Resolución</label>
+        <textarea class="field" id="dual-output" readonly style="min-height:200px;" placeholder="Las respuestas aparecerán acá…"></textarea>
       </div>
     </div>
 
@@ -838,14 +420,12 @@ footer {
     <div class="panel">
       <p class="panel-title">Conversación</p>
       <p class="panel-desc">Preguntale lo que necesites a AliciaIA.</p>
-
       <div class="chat-area" id="chat-area">
         <div class="bubble ai">
           <strong>AliciaIA</strong>
           Hola, soy Alicia. ¿En qué puedo ayudarte hoy?
         </div>
       </div>
-
       <div class="chat-input-row">
         <textarea class="field" id="chat-input" placeholder="Escribí tu mensaje…" rows="1" onkeydown="chatKeydown(event)"></textarea>
         <button class="btn btn-primary" onclick="enviarChat()">
@@ -864,7 +444,6 @@ footer {
     <div class="panel">
       <p class="panel-title">Calculadora</p>
       <p class="panel-desc">Evaluá expresiones matemáticas o usá el teclado visual.</p>
-
       <div class="calc-grid">
         <div>
           <div class="calc-display" id="calc-display">0</div>
@@ -873,28 +452,23 @@ footer {
             <button class="key op" onclick="calcSign()">+/−</button>
             <button class="key op" onclick="calcPercent()">%</button>
             <button class="key op" onclick="calcOp('/')">÷</button>
-
             <button class="key" onclick="calcDigit('7')">7</button>
             <button class="key" onclick="calcDigit('8')">8</button>
             <button class="key" onclick="calcDigit('9')">9</button>
             <button class="key op" onclick="calcOp('*')">×</button>
-
             <button class="key" onclick="calcDigit('4')">4</button>
             <button class="key" onclick="calcDigit('5')">5</button>
             <button class="key" onclick="calcDigit('6')">6</button>
             <button class="key op" onclick="calcOp('-')">−</button>
-
             <button class="key" onclick="calcDigit('1')">1</button>
             <button class="key" onclick="calcDigit('2')">2</button>
             <button class="key" onclick="calcDigit('3')">3</button>
             <button class="key op" onclick="calcOp('+')">+</button>
-
             <button class="key zero" onclick="calcDigit('0')">0</button>
             <button class="key" onclick="calcDot()">.</button>
             <button class="key eq" onclick="calcEval()">=</button>
           </div>
         </div>
-
         <div>
           <label class="field-label">Expresión libre</label>
           <input class="field" id="expr-input" placeholder="e.g. sqrt(144) + 2^8" onkeydown="exprKeydown(event)">
@@ -904,13 +478,10 @@ footer {
               Evaluar
             </button>
           </div>
-          <div class="result-block visible" id="result-calc" style="display:block; margin-top:1rem;">
-            <div class="result-header">
-              <span class="result-tag">Resultado</span>
-            </div>
+          <div style="display:block; margin-top:1rem;">
+            <div class="result-header"><span class="result-tag">Resultado</span></div>
             <div class="calc-display" id="calc-result" style="font-size:2rem; min-height:56px; border-color:var(--sand);">—</div>
           </div>
-
           <p class="field-label" style="margin-top:1.5rem;">Historial</p>
           <div class="history-list" id="history-list">
             <p style="font-size:13px; color:var(--muted);">Sin cálculos aún.</p>
@@ -922,17 +493,17 @@ footer {
 
 </main>
 
-<footer>
-  Hecho con ♥ · AliciaIA © 2025
-</footer>
+<footer>Hecho con ♥ · AliciaIA © 2025</footer>
 
-<!-- Tesseract CDN -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.4/dist/tesseract.min.js"></script>
-<!-- mathjs CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
 
 <script>
-/* ── Tab navigation ── */
+// ── CONFIGURACIÓN ──
+// Reemplazá esto con tu URL real de Render una vez deployado
+const BACKEND_URL = 'https://dou-ia.onrender.com';
+
+// ── TAB NAVIGATION ──
 function switchTab(btn, id) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -941,9 +512,7 @@ function switchTab(btn, id) {
   document.getElementById('hero').style.display = id === 'ocr' ? '' : 'none';
 }
 
-/* ── OCR / Dual mode ── */
-const BACKEND_URL = 'https://dou-ia.onrender.com'; // ← cambiá esto por tu URL de Render
-
+// ── MODO SIMPLE / DUAL ──
 let currentMode = 'simple';
 let files = { simple: null, pregunta: null, respuestas: null };
 
@@ -955,12 +524,10 @@ function setMode(mode) {
   document.getElementById('panel-dual').style.display  = mode === 'dual'   ? '' : 'none';
 }
 
-/* Generic file change handler: fileId = input id, previewId = img id */
-function onFileChange(e, previewId, btnId) {
+function onFileChange(e, previewId) {
   const f = e.target.files[0];
   if (!f) return;
   const inputId = e.target.id;
-  // Map input id → files key
   if (inputId === 'imagen')         files.simple    = f;
   if (inputId === 'img-pregunta')   files.pregunta  = f;
   if (inputId === 'img-respuestas') files.respuestas = f;
@@ -969,35 +536,30 @@ function onFileChange(e, previewId, btnId) {
   preview.src = URL.createObjectURL(f);
   preview.style.display = 'block';
 
-  // Update drop label
   const lblMap = { imagen: 'lbl-simple', 'img-pregunta': 'lbl-pregunta', 'img-respuestas': 'lbl-respuestas' };
   const lbl = document.getElementById(lblMap[inputId]);
   if (lbl) lbl.textContent = f.name;
 
-  refreshDualBtn();
   if (inputId === 'imagen') document.getElementById('btn-procesar').disabled = false;
+  refreshDualBtn();
 }
 
 function refreshDualBtn() {
-  const ready = files.pregunta && files.respuestas;
-  document.getElementById('btn-dual').disabled = !ready;
+  document.getElementById('btn-dual').disabled = !(files.pregunta && files.respuestas);
 }
 
-/* Drag helpers */
 function dzDrag(e, dzId) { e.preventDefault(); document.getElementById(dzId).classList.add('dragover'); }
 function dzLeave(dzId) { document.getElementById(dzId).classList.remove('dragover'); }
-function dzDrop(e, dzId, inputId, previewId, btnId) {
+function dzDrop(e, dzId, inputId, previewId) {
   e.preventDefault();
   document.getElementById(dzId).classList.remove('dragover');
   const f = e.dataTransfer.files[0];
   if (!f) return;
   const input = document.getElementById(inputId);
   const dt = new DataTransfer(); dt.items.add(f); input.files = dt.files;
-  // Trigger onFileChange manually
-  onFileChange({ target: input }, previewId, btnId);
+  onFileChange({ target: input }, previewId);
 }
 
-/* ── Convierte base64 → Blob para pasarlo a Tesseract ── */
 function base64ToBlob(b64, mime) {
   const bytes = atob(b64);
   const arr = new Uint8Array(bytes.length);
@@ -1005,108 +567,107 @@ function base64ToBlob(b64, mime) {
   return new Blob([arr], { type: mime });
 }
 
-/* ── Modo simple: backend limpia → Tesseract lee la imagen limpia ── */
+// ── MODO SIMPLE ──
 async function procesarImagen() {
   if (!files.simple) return;
   const loader = document.getElementById('loader-ocr');
-  const btn = document.getElementById('btn-procesar');
+  const btn    = document.getElementById('btn-procesar');
+  const lbl    = document.getElementById('lbl-loader-ocr');
   loader.classList.add('visible'); btn.disabled = true;
 
   try {
-    // Paso 1: enviar al backend para limpiar la imagen
-    loader.querySelector('span').textContent = 'Limpiando imagen…';
+    lbl.textContent = 'Limpiando imagen…';
     const fd = new FormData();
     fd.append('pregunta', 'ocr');
     fd.append('archivo_imagen', files.simple, files.simple.name);
     const resp = await fetch(`${BACKEND_URL}/procesar-tarea`, { method: 'POST', body: fd });
     const data = await resp.json();
 
-    // Paso 2: OCR sobre la imagen ya limpia que devuelve el backend
-    loader.querySelector('span').textContent = 'Leyendo texto…';
+    lbl.textContent = 'Leyendo texto…';
     const imgBlob = base64ToBlob(data.imagen_limpia_base64, 'image/png');
-    const result = await Tesseract.recognize(imgBlob, 'spa+eng');
-    const texto = result.data.text.trim() || '(No se detectó texto)';
+    const result  = await Tesseract.recognize(imgBlob, 'spa+eng');
+    document.getElementById('ocr-output').value = result.data.text.trim() || '(No se detectó texto)';
 
-    document.getElementById('ocr-output').value = texto;
-    document.getElementById('result-ocr').classList.add('visible');
   } catch (err) {
-    // Fallback: si el backend falla, OCR directo sobre la imagen original
+    // Fallback: OCR directo sin pasar por el backend
     try {
-      loader.querySelector('span').textContent = 'OCR directo…';
+      lbl.textContent = 'OCR directo…';
       const result = await Tesseract.recognize(files.simple, 'spa+eng');
       document.getElementById('ocr-output').value = result.data.text.trim() || '(Sin texto)';
-    } catch(e2) {
+    } catch (e2) {
       document.getElementById('ocr-output').value = 'Error: ' + e2.message;
     }
-    document.getElementById('result-ocr').classList.add('visible');
-  } finally {
-    loader.querySelector('span').textContent = 'Leyendo texto…';
-    loader.classList.remove('visible'); btn.disabled = false;
   }
+
+  document.getElementById('result-ocr').classList.add('visible');
+  lbl.textContent = 'Leyendo texto…';
+  loader.classList.remove('visible');
+  btn.disabled = false;
 }
 
-/* ── Modo dual: backend limpia ambas → Tesseract lee las imágenes limpias ── */
+// ── MODO DUAL ──
 async function procesarDual() {
   if (!files.pregunta || !files.respuestas) return;
   const loader = document.getElementById('loader-dual');
-  const btn = document.getElementById('btn-dual');
+  const btn    = document.getElementById('btn-dual');
+  const lbl    = document.getElementById('lbl-loader-dual');
   loader.classList.add('visible'); btn.disabled = true;
 
   try {
-    // Paso 1: enviar ambas imágenes al backend para limpiar
-    loader.querySelector('span').textContent = 'Limpiando imágenes…';
+    // Paso 1: enviar imágenes al backend para limpiar y hacer OCR
+    lbl.textContent = 'Limpiando y leyendo imágenes…';
     const fd = new FormData();
     fd.append('texto_pregunta',    'ocr');
     fd.append('texto_respuestas',  'ocr');
     fd.append('contexto',          document.getElementById('dual-contexto').value.trim());
     fd.append('imagen_pregunta',   files.pregunta,   files.pregunta.name);
     fd.append('imagen_respuestas', files.respuestas, files.respuestas.name);
+
     const resp = await fetch(`${BACKEND_URL}/procesar-dual`, { method: 'POST', body: fd });
     const data = await resp.json();
 
-    // Paso 2: OCR sobre las imágenes limpias en paralelo
-    loader.querySelector('span').textContent = 'Leyendo texto…';
-    const blobP = base64ToBlob(data.imagen_pregunta_limpia_base64,   'image/png');
-    const blobR = base64ToBlob(data.imagen_respuestas_limpia_base64, 'image/png');
-    const [resP, resR] = await Promise.all([
-      Tesseract.recognize(blobP, 'spa+eng'),
-      Tesseract.recognize(blobR, 'spa+eng'),
-    ]);
-    const textoPregunta   = resP.data.text.trim() || '(Sin texto detectado)';
-    const textoRespuestas = resR.data.text.trim() || '(Sin texto detectado)';
+    // Mostrar texto extraído por el backend (OCR del servidor)
+    const textoPregunta   = data.estructura_preguntas?.preguntas_detectadas?.map(p => p.texto).join('\n') || '(Sin texto)';
+    const textoRespuestas = data.estructura_respuestas?.texto_restante?.join('\n') || '(Sin texto)';
 
     document.getElementById('dual-pregunta-out').value   = textoPregunta;
     document.getElementById('dual-respuestas-out').value = textoRespuestas;
-
-    // Paso 3: segunda llamada al backend con el texto extraído para buscar en la web
-    loader.querySelector('span').textContent = 'Buscando en la web…';
-    const fd2 = new FormData();
-    fd2.append('texto_pregunta',   textoPregunta);
-    fd2.append('texto_respuestas', textoRespuestas);
-    fd2.append('contexto',         document.getElementById('dual-contexto').value.trim());
-    const resp2 = await fetch(`${BACKEND_URL}/procesar-dual`, { method: 'POST', body: fd2 });
-    const data2 = await resp2.json();
-
-    document.getElementById('dual-output').value = data2.informacion_encontrada_web || '(Sin resultados web)';
+    document.getElementById('dual-output').value         = data.informacion_encontrada_web || '(Sin resultados)';
     document.getElementById('result-dual').classList.add('visible');
 
   } catch (err) {
-    document.getElementById('dual-output').value = 'Error: ' + err.message + '\n\nVerificá que BACKEND_URL sea correcto y el servidor esté activo.';
+    // Fallback: OCR en el navegador con Tesseract.js si el backend falla
+    try {
+      lbl.textContent = 'Fallback OCR local…';
+      const [resP, resR] = await Promise.all([
+        Tesseract.recognize(files.pregunta,   'spa+eng'),
+        Tesseract.recognize(files.respuestas, 'spa+eng'),
+      ]);
+      const textoPregunta   = resP.data.text.trim() || '(Sin texto)';
+      const textoRespuestas = resR.data.text.trim() || '(Sin texto)';
+
+      document.getElementById('dual-pregunta-out').value   = textoPregunta;
+      document.getElementById('dual-respuestas-out').value = textoRespuestas;
+      document.getElementById('dual-output').value =
+        'El backend no está disponible. Texto extraído localmente:\n\n' +
+        'PREGUNTA:\n' + textoPregunta + '\n\nREFERENCIA:\n' + textoRespuestas;
+    } catch (e2) {
+      document.getElementById('dual-output').value = 'Error: ' + e2.message;
+    }
     document.getElementById('result-dual').classList.add('visible');
-  } finally {
-    loader.querySelector('span').textContent = 'Procesando imágenes…';
-    loader.classList.remove('visible'); btn.disabled = false;
   }
+
+  lbl.textContent = 'Procesando imágenes…';
+  loader.classList.remove('visible');
+  btn.disabled = false;
 }
 
 function copyText(id) {
   const el = document.getElementById(id);
-  navigator.clipboard.writeText(el.value).then(() => {
-    showToast('Texto copiado');
-  });
+  navigator.clipboard.writeText(el.value).then(() => showToast('Texto copiado'));
 }
 
-/* ── Chat (simulated with smart responses) ── */
+// ── CHAT ──
 const chatResponses = [
   "Entiendo tu consulta. Puedo ayudarte con extracción de texto de imágenes, cálculos matemáticos o simplemente conversar.",
   "Esa es una pregunta interesante. Decime más para poder darte una respuesta más precisa.",
@@ -1124,10 +685,8 @@ function enviarChat() {
   const input = document.getElementById('chat-input');
   const msg = input.value.trim();
   if (!msg) return;
-
   const area = document.getElementById('chat-area');
 
-  // User bubble
   const ub = document.createElement('div');
   ub.className = 'bubble user';
   ub.textContent = msg;
@@ -1135,7 +694,6 @@ function enviarChat() {
   input.value = '';
   area.scrollTop = area.scrollHeight;
 
-  // AI bubble (delayed)
   setTimeout(() => {
     const ab = document.createElement('div');
     ab.className = 'bubble ai';
@@ -1146,75 +704,36 @@ function enviarChat() {
   }, 700 + Math.random() * 500);
 }
 
-/* ── Calculator ── */
+// ── CALCULADORA ──
 let calcExpr = '';
 let calcNew = true;
 
 function updateDisplay() {
   const d = document.getElementById('calc-display');
   d.textContent = calcExpr || '0';
-  if (calcExpr.length > 10) d.style.fontSize = '2rem';
-  else if (calcExpr.length > 7) d.style.fontSize = '2.4rem';
-  else d.style.fontSize = '2.8rem';
+  d.style.fontSize = calcExpr.length > 10 ? '2rem' : calcExpr.length > 7 ? '2.4rem' : '2.8rem';
 }
 
-function calcDigit(d) {
-  if (calcNew) { calcExpr = ''; calcNew = false; }
-  calcExpr += d;
-  updateDisplay();
-}
-
-function calcOp(op) {
-  calcNew = false;
-  // Replace trailing operator if any
-  calcExpr = calcExpr.replace(/[+\-*/]$/, '');
-  calcExpr += op;
-  updateDisplay();
-}
-
+function calcDigit(d) { if (calcNew) { calcExpr = ''; calcNew = false; } calcExpr += d; updateDisplay(); }
+function calcOp(op) { calcNew = false; calcExpr = calcExpr.replace(/[+\-*/]$/, '') + op; updateDisplay(); }
 function calcDot() {
   if (calcNew) { calcExpr = '0'; calcNew = false; }
   const parts = calcExpr.split(/[+\-*/]/);
   if (!parts[parts.length - 1].includes('.')) calcExpr += '.';
   updateDisplay();
 }
-
-function calcClear() {
-  calcExpr = '';
-  calcNew = true;
-  updateDisplay();
-  document.getElementById('calc-result').textContent = '—';
-}
-
-function calcSign() {
-  try {
-    const val = math.evaluate(calcExpr);
-    calcExpr = String(-val);
-    updateDisplay();
-  } catch(e) {}
-}
-
-function calcPercent() {
-  try {
-    const val = math.evaluate(calcExpr);
-    calcExpr = String(val / 100);
-    updateDisplay();
-  } catch(e) {}
-}
-
+function calcClear() { calcExpr = ''; calcNew = true; updateDisplay(); document.getElementById('calc-result').textContent = '—'; }
+function calcSign() { try { calcExpr = String(-math.evaluate(calcExpr)); updateDisplay(); } catch(e) {} }
+function calcPercent() { try { calcExpr = String(math.evaluate(calcExpr) / 100); updateDisplay(); } catch(e) {} }
 function calcEval() {
   try {
     const val = math.evaluate(calcExpr);
     addToHistory(calcExpr, val);
     document.getElementById('calc-result').textContent = formatNum(val);
-    calcExpr = String(val);
-    calcNew = true;
-    updateDisplay();
+    calcExpr = String(val); calcNew = true; updateDisplay();
   } catch(e) {
     document.getElementById('calc-result').textContent = 'Error';
-    calcExpr = '';
-    calcNew = true;
-    updateDisplay();
+    calcExpr = ''; calcNew = true; updateDisplay();
   }
 }
 
@@ -1230,9 +749,7 @@ function evalExpr() {
   }
 }
 
-function exprKeydown(e) {
-  if (e.key === 'Enter') evalExpr();
-}
+function exprKeydown(e) { if (e.key === 'Enter') evalExpr(); }
 
 function formatNum(n) {
   if (typeof n === 'number') {
@@ -1243,46 +760,34 @@ function formatNum(n) {
 }
 
 let history = [];
-
 function addToHistory(expr, val) {
   history.unshift({ expr, val: formatNum(val) });
   if (history.length > 6) history.pop();
   renderHistory();
 }
-
 function renderHistory() {
-  const list = document.getElementById('history-list');
-  list.innerHTML = history.map(h => `
-    <div class="history-item">
-      <span class="history-expr">${h.expr}</span>
-      <span class="history-val">${h.val}</span>
-    </div>
-  `).join('');
+  document.getElementById('history-list').innerHTML = history.map(h =>
+    `<div class="history-item"><span class="history-expr">${h.expr}</span><span class="history-val">${h.val}</span></div>`
+  ).join('');
 }
 
-/* ── Toast ── */
+// ── TOAST ──
 function showToast(msg) {
   const t = document.createElement('div');
   t.textContent = msg;
-  t.style.cssText = `
-    position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
-    background:var(--charcoal); color:#fff; padding:10px 20px;
-    border-radius:100px; font-size:13px; z-index:9999;
-    animation: fadeUp 0.3s ease; pointer-events:none;
-  `;
+  t.style.cssText = `position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--charcoal);color:#fff;padding:10px 20px;border-radius:100px;font-size:13px;z-index:9999;pointer-events:none;`;
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 2200);
 }
 
-/* Keyboard support for calculator */
+// ── TECLADO PARA CALCULADORA ──
 document.addEventListener('keydown', e => {
-  const secCalc = document.getElementById('section-calc');
-  if (!secCalc.classList.contains('active')) return;
+  if (!document.getElementById('section-calc').classList.contains('active')) return;
   if (document.activeElement === document.getElementById('expr-input')) return;
   if ('0123456789'.includes(e.key)) calcDigit(e.key);
   else if (['+', '-', '*', '/'].includes(e.key)) calcOp(e.key);
   else if (e.key === 'Enter' || e.key === '=') calcEval();
-  else if (e.key === 'Backspace') { calcExpr = calcExpr.slice(0,-1); updateDisplay(); }
+  else if (e.key === 'Backspace') { calcExpr = calcExpr.slice(0, -1); updateDisplay(); }
   else if (e.key === 'Escape') calcClear();
   else if (e.key === '.') calcDot();
 });

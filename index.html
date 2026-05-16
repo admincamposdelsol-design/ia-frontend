@@ -942,7 +942,7 @@ function switchTab(btn, id) {
 }
 
 /* ── OCR / Dual mode ── */
-const BACKEND_URL = 'https://dou-ia.onrender.com'; // ← cambiá esto por tu URL de Render
+const BACKEND_URL = 'https://TU-APP.onrender.com'; // ← cambiá esto por tu URL de Render
 
 let currentMode = 'simple';
 let files = { simple: null, pregunta: null, respuestas: null };
@@ -997,26 +997,55 @@ function dzDrop(e, dzId, inputId, previewId, btnId) {
   onFileChange({ target: input }, previewId, btnId);
 }
 
-/* ── Modo simple: OCR local con Tesseract ── */
+/* ── Convierte base64 → Blob para pasarlo a Tesseract ── */
+function base64ToBlob(b64, mime) {
+  const bytes = atob(b64);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+/* ── Modo simple: backend limpia → Tesseract lee la imagen limpia ── */
 async function procesarImagen() {
   if (!files.simple) return;
   const loader = document.getElementById('loader-ocr');
   const btn = document.getElementById('btn-procesar');
   loader.classList.add('visible'); btn.disabled = true;
+
   try {
-    const result = await Tesseract.recognize(files.simple, 'spa+eng');
+    // Paso 1: enviar al backend para limpiar la imagen
+    loader.querySelector('span').textContent = 'Limpiando imagen…';
+    const fd = new FormData();
+    fd.append('pregunta', 'ocr');
+    fd.append('archivo_imagen', files.simple, files.simple.name);
+    const resp = await fetch(`${BACKEND_URL}/procesar-tarea`, { method: 'POST', body: fd });
+    const data = await resp.json();
+
+    // Paso 2: OCR sobre la imagen ya limpia que devuelve el backend
+    loader.querySelector('span').textContent = 'Leyendo texto…';
+    const imgBlob = base64ToBlob(data.imagen_limpia_base64, 'image/png');
+    const result = await Tesseract.recognize(imgBlob, 'spa+eng');
     const texto = result.data.text.trim() || '(No se detectó texto)';
+
     document.getElementById('ocr-output').value = texto;
     document.getElementById('result-ocr').classList.add('visible');
   } catch (err) {
-    document.getElementById('ocr-output').value = 'Error: ' + err.message;
+    // Fallback: si el backend falla, OCR directo sobre la imagen original
+    try {
+      loader.querySelector('span').textContent = 'OCR directo…';
+      const result = await Tesseract.recognize(files.simple, 'spa+eng');
+      document.getElementById('ocr-output').value = result.data.text.trim() || '(Sin texto)';
+    } catch(e2) {
+      document.getElementById('ocr-output').value = 'Error: ' + e2.message;
+    }
     document.getElementById('result-ocr').classList.add('visible');
   } finally {
+    loader.querySelector('span').textContent = 'Leyendo texto…';
     loader.classList.remove('visible'); btn.disabled = false;
   }
 }
 
-/* ── Modo dual: OCR local + envío al backend ── */
+/* ── Modo dual: backend limpia ambas → Tesseract lee las imágenes limpias ── */
 async function procesarDual() {
   if (!files.pregunta || !files.respuestas) return;
   const loader = document.getElementById('loader-dual');
@@ -1024,10 +1053,24 @@ async function procesarDual() {
   loader.classList.add('visible'); btn.disabled = true;
 
   try {
-    // 1. OCR ambas imágenes en paralelo
+    // Paso 1: enviar ambas imágenes al backend para limpiar
+    loader.querySelector('span').textContent = 'Limpiando imágenes…';
+    const fd = new FormData();
+    fd.append('texto_pregunta',    'ocr');
+    fd.append('texto_respuestas',  'ocr');
+    fd.append('contexto',          document.getElementById('dual-contexto').value.trim());
+    fd.append('imagen_pregunta',   files.pregunta,   files.pregunta.name);
+    fd.append('imagen_respuestas', files.respuestas, files.respuestas.name);
+    const resp = await fetch(`${BACKEND_URL}/procesar-dual`, { method: 'POST', body: fd });
+    const data = await resp.json();
+
+    // Paso 2: OCR sobre las imágenes limpias en paralelo
+    loader.querySelector('span').textContent = 'Leyendo texto…';
+    const blobP = base64ToBlob(data.imagen_pregunta_limpia_base64,   'image/png');
+    const blobR = base64ToBlob(data.imagen_respuestas_limpia_base64, 'image/png');
     const [resP, resR] = await Promise.all([
-      Tesseract.recognize(files.pregunta,   'spa+eng'),
-      Tesseract.recognize(files.respuestas, 'spa+eng'),
+      Tesseract.recognize(blobP, 'spa+eng'),
+      Tesseract.recognize(blobR, 'spa+eng'),
     ]);
     const textoPregunta   = resP.data.text.trim() || '(Sin texto detectado)';
     const textoRespuestas = resR.data.text.trim() || '(Sin texto detectado)';
@@ -1035,27 +1078,23 @@ async function procesarDual() {
     document.getElementById('dual-pregunta-out').value   = textoPregunta;
     document.getElementById('dual-respuestas-out').value = textoRespuestas;
 
-    // 2. Enviar al backend /procesar-dual con campos separados
-    const contexto = document.getElementById('dual-contexto').value.trim();
+    // Paso 3: segunda llamada al backend con el texto extraído para buscar en la web
+    loader.querySelector('span').textContent = 'Buscando en la web…';
+    const fd2 = new FormData();
+    fd2.append('texto_pregunta',   textoPregunta);
+    fd2.append('texto_respuestas', textoRespuestas);
+    fd2.append('contexto',         document.getElementById('dual-contexto').value.trim());
+    const resp2 = await fetch(`${BACKEND_URL}/procesar-dual`, { method: 'POST', body: fd2 });
+    const data2 = await resp2.json();
 
-    const fd = new FormData();
-    fd.append('texto_pregunta',   textoPregunta);
-    fd.append('texto_respuestas', textoRespuestas);
-    fd.append('contexto',         contexto);
-    fd.append('imagen_pregunta',   files.pregunta,   files.pregunta.name);
-    fd.append('imagen_respuestas', files.respuestas, files.respuestas.name);
-
-    const resp = await fetch(`${BACKEND_URL}/procesar-dual`, { method: 'POST', body: fd });
-    const data = await resp.json();
-
-    const webInfo = data.informacion_encontrada_web || '(Sin resultados web)';
-    document.getElementById('dual-output').value = webInfo;
+    document.getElementById('dual-output').value = data2.informacion_encontrada_web || '(Sin resultados web)';
     document.getElementById('result-dual').classList.add('visible');
 
   } catch (err) {
-    document.getElementById('dual-output').value = 'Error: ' + err.message + '\n\nVerificá que el backend esté corriendo y que BACKEND_URL sea correcto.';
+    document.getElementById('dual-output').value = 'Error: ' + err.message + '\n\nVerificá que BACKEND_URL sea correcto y el servidor esté activo.';
     document.getElementById('result-dual').classList.add('visible');
   } finally {
+    loader.querySelector('span').textContent = 'Procesando imágenes…';
     loader.classList.remove('visible'); btn.disabled = false;
   }
 }
